@@ -1,0 +1,6 @@
+.header {
+  max-width: 1280px;
+  height: 74px;
+  flex-shrink: 0;
+  background: #073042;
+}

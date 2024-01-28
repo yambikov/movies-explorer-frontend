@@ -7,17 +7,8 @@ body {
   color: white;
 }
 
-.brd * {
-  outline: red solid 1px;
-}
-
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
-
 @import url(./vendor/fonts/fonts.css);
 @import url(./vendor/normalize.css);
 
-
+@import url(./components/App/App.css);
+@import url(./components/Header/Header.css);
