@@ -7,6 +7,10 @@ body {
   color: white;
 }
 
+.brd * {
+  outline: red solid 1px;
+}
+
 
 @import url(./vendor/fonts/fonts.css);
 @import url(./vendor/normalize.css);

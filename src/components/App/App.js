@@ -15,7 +15,7 @@ import { Route } from "react-router";
 function App() {
   return (
     <CurrentUserContext.Provider>
-      <div className="root">
+      <div className="root brd">
         <Routes>
           <Route path="/" element={
             <>
