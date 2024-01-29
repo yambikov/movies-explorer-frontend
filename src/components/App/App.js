@@ -3,9 +3,10 @@ import './App.css';
 // import React, { useState } from "react"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
 import { Routes } from 'react-router-dom';
-import Hero from "../Hero/Hero";
+import Promo from "../Promo/Promo";
 import Header from "../Header/Header";
-import Footer from "../Footer";
+import NavTab from '../NavTab/NavTab';
+// import Footer from "../Footer";
 import { Route } from "react-router";
 
 
@@ -20,8 +21,9 @@ function App() {
           <Route path="/" element={
             <>
               <Header />
-              <Hero />
-              <Footer />
+              <Promo />
+              <NavTab />
+              {/* <Footer /> */}
             </>}
           />
         </ Routes>
