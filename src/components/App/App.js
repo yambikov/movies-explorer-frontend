@@ -3,7 +3,7 @@ import './App.css';
 // import React, { useState } from "react"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
 import { Routes } from 'react-router-dom';
-import Main from "../Main";
+import Hero from "../Hero/Hero";
 import Header from "../Header/Header";
 import Footer from "../Footer";
 import { Route } from "react-router";
@@ -15,12 +15,12 @@ import { Route } from "react-router";
 function App() {
   return (
     <CurrentUserContext.Provider>
-      <div className="root brd">
+      <div className="root">
         <Routes>
           <Route path="/" element={
             <>
               <Header />
-              <Main />
+              <Hero />
               <Footer />
             </>}
           />

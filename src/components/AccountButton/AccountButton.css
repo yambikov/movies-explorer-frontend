@@ -1,0 +1,23 @@
+.account-button {
+  display: inline-flex;
+  align-items: center;
+  background: #073042; 
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 12px;
+  padding-right: 3px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.account-button-image {
+  padding-left: 8px;
+}
+
+.account-button:hover {
+  opacity: 0.7;
+}
