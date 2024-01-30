@@ -6,6 +6,7 @@ import { Routes } from 'react-router-dom';
 import Promo from "../Promo/Promo";
 import Header from "../Header/Header";
 import NavTab from '../NavTab/NavTab';
+import AboutProject from '../AboutProject/AboutProject';
 // import Footer from "../Footer";
 import { Route } from "react-router";
 
@@ -23,7 +24,13 @@ function App() {
               <Header />
               <Promo />
               <NavTab />
-              {/* <Footer /> */}
+              <AboutProject />
+              {/*
+              Techs — компонент с использованными технологиями.
+              AboutMe — компонент с информацией о студенте.
+              Portfolio 
+              
+              <Footer /> */}
             </>}
           />
         </ Routes>

@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "../../Link/Link";
+import Link from "../Link/Link";
 
 function NavTab(props) {
   return (
@@ -8,7 +8,7 @@ function NavTab(props) {
         <ul className="navtab__navigation-list">
           <li>
             <Link
-              href="#about-project"
+              href="#about"
               label="О проекте"
               className="navtab__navigation-item"
             />

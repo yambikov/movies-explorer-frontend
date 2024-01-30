@@ -1,6 +1,6 @@
 import React from "react"
 import Logo from "../Logo/Logo"
-import Link from "../../Link/Link";
+import Link from "../Link/Link";
 import AccountButton from "../AccountButton/AccountButton"
 
 function Header(props) {
