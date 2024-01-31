@@ -6,6 +6,7 @@ import { Routes } from 'react-router-dom';
 import Promo from "../Promo/Promo";
 import Header from "../Header/Header";
 import NavTab from '../NavTab/NavTab';
+import Techs from '../Techs/Techs';
 import AboutProject from '../AboutProject/AboutProject';
 // import Footer from "../Footer";
 import { Route } from "react-router";
@@ -25,8 +26,9 @@ function App() {
               <Promo />
               <NavTab />
               <AboutProject />
+              <Techs />
               {/*
-              Techs — компонент с использованными технологиями.
+               — компонент с использованными технологиями.
               AboutMe — компонент с информацией о студенте.
               Portfolio 
               
