@@ -7,9 +7,9 @@ function Header(props) {
 
   return (
     <header className="header">
-      <div className="header__container">
+      <div className="header__wrapper">
         <Logo />
-        <div className="header__navigation-container">
+        <div className="header__navigation-wrapper">
           <nav className="header__navigation">
             <ul className="header__navigation-list">
               <li>

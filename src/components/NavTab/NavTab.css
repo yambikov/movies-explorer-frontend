@@ -1,4 +1,4 @@
-.promo__container {
+.promo__wrapper {
   background: #073042;
   display: flex;
   justify-content: center;
@@ -52,9 +52,5 @@
 .navtab__navigation-item {
   padding: 0 20px;
   color: #fff;
-  transition: opacity 0.3s ease;
 }
 
-.navtab__navigation-item:hover {
-  opacity: 0.7;
-}

@@ -1,0 +1,116 @@
+.about-me {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.about-me__wrapper {
+  padding: 0 70px;
+}
+
+.about-me__content {
+  background-color: blueviolet;
+}
+
+.about-me__section-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 68px;
+}
+
+.about-me__info-section {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__name {
+  color: #fff;
+  font-family: Inter;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px; /* 116% */
+  letter-spacing: -2px;
+}
+
+.about-me__info {
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 111.111% */
+  padding-top: 20px;
+}
+
+.about-me__bio {
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 157.143% */
+  padding-top: 23px;
+}
+
+.about-me__github-link {
+  color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding-top: 100px;
+}
+
+.about-me__photo {
+  width: 270px;
+  height: 327px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.about-me__portfolio {
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+.about-me__portfolio-title {
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 111.111% */
+  margin: 0;
+  padding-top: 100px;
+  color: #8b8b8b;
+  padding-bottom: 30px;
+}
+
+.about-me__portfolio-item {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-bottom: 1px white solid;
+}
+
+.about-me__portfolio-item:last-child {
+  border-bottom: none;
+}
+
+.about-me__portfolio-link {
+  color: #fff;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px; /* 166.667% */
+  letter-spacing: -1.2px;
+  text-decoration: none;
+}

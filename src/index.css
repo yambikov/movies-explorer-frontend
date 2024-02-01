@@ -23,3 +23,5 @@ body {
 @import url(./components/AboutProject/AboutProject.css);
 @import url(./components/SectionHeader/SectionHeader.css);
 @import url(./components/Techs/Techs.css);
+@import url(./components/AboutMe/AboutMe.css);
+@import url(./components/Link/Link.css);

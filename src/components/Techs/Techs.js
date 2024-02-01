@@ -4,7 +4,7 @@ import SectionHeader from '../SectionHeader/SectionHeader';
 function Techs(props) {
   return (
     <section className="techs">
-      <div className='techs__container'>
+      <div className='techs__wrapper'>
         <SectionHeader title="Технологии" />
         <article className="techs__details">
           <h3 className='techs__subtitle'>7 технологий</h3>

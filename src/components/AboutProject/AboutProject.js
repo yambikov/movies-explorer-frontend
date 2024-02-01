@@ -4,7 +4,7 @@ import SectionHeader from '../SectionHeader/SectionHeader';
 function AboutProject(props) {
   return (
     <section className="about">
-      <div className='about__container'>
+      <div className='about__wrapper'>
       <SectionHeader title="О проекте" />
         <article className="about__details">
           <div className="about__item">

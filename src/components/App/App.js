@@ -10,6 +10,7 @@ import Techs from '../Techs/Techs';
 import AboutProject from '../AboutProject/AboutProject';
 // import Footer from "../Footer";
 import { Route } from "react-router";
+import AboutMe from '../AboutMe/AboutMe';
 
 
 // State для хранения данных о текущем пользователе
@@ -22,11 +23,12 @@ function App() {
         <Routes>
           <Route path="/" element={
             <>
-              <Header />
+              {/* <Header />
               <Promo />
               <NavTab />
               <AboutProject />
-              <Techs />
+              <Techs /> */}
+              <AboutMe />
               {/*
                — компонент с использованными технологиями.
               AboutMe — компонент с информацией о студенте.
