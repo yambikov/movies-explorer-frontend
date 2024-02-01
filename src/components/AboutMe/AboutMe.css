@@ -7,10 +7,6 @@
   padding: 0 70px;
 }
 
-.about-me__content {
-  background-color: blueviolet;
-}
-
 .about-me__section-wrapper {
   display: flex;
   justify-content: space-between;
@@ -18,10 +14,18 @@
 }
 
 .about-me__info-section {
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-me__info-section {
   width: 600px;
   display: flex;
   flex-direction: column;
+  padding-right: 20px;
 }
+
 
 .about-me__name {
   color: #fff;
@@ -56,13 +60,15 @@
 }
 
 .about-me__github-link {
+  display: inline-block;
+  width: fit-content;
   color: #fff;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  padding-top: 100px;
+  
 }
 
 .about-me__photo {
