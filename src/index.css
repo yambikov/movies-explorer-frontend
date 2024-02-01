@@ -7,7 +7,7 @@ body {
   color: white;
 }
 
-.brd0 * {
+.brd * {
   outline: red solid 1px;
 }
 
@@ -26,3 +26,13 @@ body {
 @import url(./components/AboutMe/AboutMe.css);
 @import url(./components/Link/Link.css);
 @import url(./components/Footer/Footer.css);
+
+/* 
+
+@media screen and (max-width: 768px) {
+  .header__wrapper {
+    padding: 18px 30px;
+  }
+} 
+
+*/

@@ -5,11 +5,19 @@
   display: flex;
 }
 
+
+
 .header__wrapper {
   width: 100%;
   display: flex;
   padding: 18px 70px;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .header__wrapper {
+    padding: 18px 30px;
+  }
 }
 
 .header__navigation-wrapper {

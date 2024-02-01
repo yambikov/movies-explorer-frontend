@@ -7,6 +7,12 @@
   padding: 0 70px;
 }
 
+@media screen and (max-width: 768px) {
+  .about-me__wrapper {
+    padding: 17px 50px 0;
+  }
+}
+
 .about-me__section-wrapper {
   display: flex;
   justify-content: space-between;
@@ -14,7 +20,6 @@
 }
 
 .about-me__info-section {
-
   display: flex;
   justify-content: space-between;
 }
@@ -26,6 +31,11 @@
   padding-right: 20px;
 }
 
+/* @media screen and (max-width: 768px) {
+  .about-me__info-section  {
+    padding-right: 36px;
+  }
+} */
 
 .about-me__name {
   color: #fff;
@@ -35,6 +45,14 @@
   font-weight: 400;
   line-height: 58px; /* 116% */
   letter-spacing: -2px;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__name {
+    font-size: 40px;
+    line-height: 40px; /* 100% */
+    letter-spacing: -1.6px;
+  }
 }
 
 .about-me__info {
@@ -48,6 +66,14 @@
   padding-top: 20px;
 }
 
+@media screen and (max-width: 768px) {
+  .about-me__info {
+    font-size: 12px;
+    line-height: 18px; /* 150% */
+    padding-top: 14px;
+  }
+}
+
 .about-me__bio {
   color: #fff;
   font-feature-settings: "clig" off, "liga" off;
@@ -59,6 +85,14 @@
   padding-top: 23px;
 }
 
+@media screen and (max-width: 768px) {
+  .about-me__bio {
+    font-size: 12px;
+    line-height: 18px; /* 150% */
+    padding-top: 19px;
+  }
+}
+
 .about-me__github-link {
   display: inline-block;
   width: fit-content;
@@ -68,7 +102,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  
 }
 
 .about-me__photo {
@@ -77,6 +110,13 @@
   flex-shrink: 0;
   border-radius: 10px;
   object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__photo {
+    width: 255px;
+    height: 307px;
+  }
 }
 
 .about-me__portfolio {
@@ -98,12 +138,24 @@
   padding-bottom: 30px;
 }
 
+@media screen and (max-width: 768px) {
+  .about-me__portfolio-title {
+    padding-top: 89px;
+  }
+}
+
 .about-me__portfolio-item {
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
   padding-top: 20px;
   border-bottom: 1px white solid;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__portfolio-item {
+    padding-bottom: 19px;
+  }
 }
 
 .about-me__portfolio-item:last-child {
@@ -119,4 +171,12 @@
   line-height: 50px; /* 166.667% */
   letter-spacing: -1.2px;
   text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__portfolio-link {
+    font-size: 28px;
+    font-style: normal;
+    letter-spacing: -1.12px;
+  }
 }

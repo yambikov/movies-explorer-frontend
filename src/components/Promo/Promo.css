@@ -1,3 +1,8 @@
+.promo {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .promo__wrapper {
   background: #073042;
   display: flex;
@@ -9,7 +14,14 @@
   background-position: center;
 }
 
-.promo__header {
+@media screen and (max-width: 768px) {
+  .promo__wrapper {
+    padding: 18px 30px 51px;
+    height: 712px;
+  }
+}
+
+.promo__title {
   color: #fff;
   text-align: center;
   font-size: 50px;
@@ -22,7 +34,3 @@
   width: 730px;
 }
 
-.promo {
-  max-width: 1280px;
-  margin: 0 auto;
-}

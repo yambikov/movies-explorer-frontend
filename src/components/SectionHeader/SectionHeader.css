@@ -15,3 +15,9 @@
   padding: 110px 0 23px;
   margin: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .section__title {
+    padding: 72px 0 23px;
+  }
+} 
