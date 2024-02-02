@@ -16,8 +16,19 @@
   margin: 0;
 }
 
+/* .section__title_border-color_black {
+  border-bottom: 1px solid black;
+} */
+
 @media screen and (max-width: 768px) {
   .section__title {
     padding: 72px 0 23px;
   }
-} 
+}
+
+@media screen and (max-width: 480px) {
+  .section__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+}

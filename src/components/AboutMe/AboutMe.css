@@ -13,15 +13,27 @@
   }
 }
 
+@media screen and (max-width: 480px) {
+  .about-me__wrapper {
+    padding: 20px 14px 0;
+  }
+}
+
 .about-me__section-wrapper {
   display: flex;
   justify-content: space-between;
   padding-top: 68px;
+
+  flex-direction: column-reverse;
+  align-items: center;
 }
 
-.about-me__info-section {
-  display: flex;
-  justify-content: space-between;
+@media screen and (max-width: 480px) {
+  .about-me__section-wrapper {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding-top: 64px;
+  }
 }
 
 .about-me__info-section {
@@ -29,13 +41,16 @@
   display: flex;
   flex-direction: column;
   padding-right: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-/* @media screen and (max-width: 768px) {
-  .about-me__info-section  {
-    padding-right: 36px;
+@media screen and (max-width: 480px) {
+  .about-me__info-section {
+    width: 100%;
+    padding: 0;
   }
-} */
+}
 
 .about-me__name {
   color: #fff;
@@ -52,6 +67,17 @@
     font-size: 40px;
     line-height: 40px; /* 100% */
     letter-spacing: -1.6px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-me__name {
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    padding-top: 39px;
   }
 }
 
@@ -74,6 +100,16 @@
   }
 }
 
+@media screen and (max-width: 480px) {
+  .about-me__info {
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 145.455% */
+    padding-top: 20px;
+  }
+}
+
 .about-me__bio {
   color: #fff;
   font-feature-settings: "clig" off, "liga" off;
@@ -93,6 +129,15 @@
   }
 }
 
+@media screen and (max-width: 480px) {
+  .about-me__bio {
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 145.455% */
+  }
+}
+
 .about-me__github-link {
   display: inline-block;
   width: fit-content;
@@ -102,6 +147,12 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+@media screen and (max-width: 480px) {
+  .about-me__github-link {
+    padding-top: 42px;
+  }
 }
 
 .about-me__photo {
@@ -116,6 +167,14 @@
   .about-me__photo {
     width: 255px;
     height: 307px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-me__photo {
+    width: 292px;
+    height: 352px;
+    flex-shrink: 0;
   }
 }
 
@@ -141,6 +200,20 @@
 @media screen and (max-width: 768px) {
   .about-me__portfolio-title {
     padding-top: 89px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-me__portfolio-title {
+    color: #a0a0a0;
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    padding-top: 69px;
+    padding-bottom: 20px;
   }
 }
 
@@ -178,5 +251,17 @@
     font-size: 28px;
     font-style: normal;
     letter-spacing: -1.12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-me__portfolio-link {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px; /* 155.556% */
+    letter-spacing: -0.72px;
   }
 }

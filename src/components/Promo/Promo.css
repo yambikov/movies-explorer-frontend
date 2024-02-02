@@ -18,6 +18,15 @@
   .promo__wrapper {
     padding: 18px 30px 51px;
     height: 712px;
+    background-size: 248px 248px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .promo__wrapper {
+    padding: 18px 14px;
+    height: 530px;
+
   }
 }
 
@@ -30,7 +39,14 @@
   line-height: 58px;
   letter-spacing: -2px;
   margin: 0;
-  height: 116px;
+  /* height: 116px; */
   width: 730px;
 }
 
+@media screen and (max-width: 480px) {
+  .promo__title {
+    font-size: 31px;
+    line-height: 39px; /* 125.806% */
+    letter-spacing: -1.24px;
+  }
+}

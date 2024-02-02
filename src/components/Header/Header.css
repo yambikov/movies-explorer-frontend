@@ -20,6 +20,12 @@
   }
 }
 
+@media screen and (max-width: 480px) {
+  .header__wrapper {
+    padding: 18px 14px;
+  }
+}
+
 .header__navigation-wrapper {
   display: flex;
   align-items: center;

@@ -3,6 +3,12 @@
   margin: 0 auto;
 }
 
+@media screen and (max-width: 480px) {
+  .about {
+    background: #202020;
+  }
+}
+
 .about__wrapper {
   padding: 0 70px;
 }
@@ -13,10 +19,23 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .about__wrapper {
+    padding: 0 18px;
+  }
+}
+
 .about__details {
   display: flex;
   padding-top: 70px;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 480px) {
+  .about__details {
+    flex-direction: column;
+    padding-top: 0px;
+  }
 }
 
 .about__subtitle {
@@ -28,6 +47,19 @@
   line-height: normal;
   letter-spacing: -0.8px;
   margin: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .about__subtitle {
+    color: #fff;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.72px;
+    padding-top: 61px;
+  }
 }
 
 .about__text {
@@ -49,9 +81,31 @@
     font-family: Inter;
     font-size: 12px;
     line-height: 18px; /* 150% */
+    padding-top: 15px;
   }
   .about__item:last-child {
     padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about__text {
+    color: #fff;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 145.455% */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about__item {
+    padding: 0;
+  }
+
+  .about__item:last-child {
+    padding: 0;
   }
 }
 
@@ -66,6 +120,12 @@
   }
 }
 
+@media screen and (max-width: 480px) {
+  .about__graph {
+    padding: 60px 0 69px;
+  }
+}
+
 .about__graph-item {
   display: flex;
   flex-direction: column;
@@ -76,8 +136,20 @@
   width: 20%;
 }
 
+@media screen and (max-width: 480px) {
+  .about__graph-item_left {
+    width: 35%;
+  }
+}
+
 .about__graph-item_right {
   width: 80%;
+}
+
+@media screen and (max-width: 480px) {
+  .about__graph-item_right {
+    width: 65%;
+  }
 }
 
 .about__graph-line {
@@ -87,27 +159,33 @@
   width: 100%;
   height: 36px;
   margin: 0;
-}
-
-.about__graph-line_left {
-  color: #000;
   text-align: center;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+@media screen and (max-width: 480px) {
+  .about__graph-line {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+.about__graph-line_left {
+  color: #000;
   background: #3ddc84;
 }
 
 .about__graph-line_right {
   color: #fff;
-  text-align: center;
-  font-family: Inter;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
   background: #303030;
 }
 
@@ -120,4 +198,17 @@
   font-weight: 500;
   line-height: 17px;
   padding-top: 14px;
+}
+
+@media screen and (max-width: 480px) {
+  .about__graph-label {
+    color: #a0a0a0;
+    text-align: center;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-top: 8px;
+  }
 }
