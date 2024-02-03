@@ -12,6 +12,7 @@ import AboutProject from '../AboutProject/AboutProject';
 import { Route } from "react-router";
 import AboutMe from '../AboutMe/AboutMe';
 import Footer from '../Footer/Footer';
+import { useRef } from "react";
 
 
 
@@ -22,8 +23,9 @@ import Footer from '../Footer/Footer';
 
 
 function App() {
-
-  // const [loggedIn, setLoggedIn] = useState(true);
+  const aboutRef = useRef(null);
+  const techsRef = useRef(null);
+  const aboutMeRef = useRef(null);
 
   return (
     <CurrentUserContext.Provider>
@@ -33,21 +35,15 @@ function App() {
             <>
               <Header />
               <Promo />
-              <NavTab />
-              <AboutProject />
-              <Techs />
-              <AboutMe />
+              <NavTab aboutRef={aboutRef} techsRef={techsRef} aboutMeRef={aboutMeRef} />
+              <div ref={aboutRef}><AboutProject /></div>
+              <div ref={techsRef}><Techs /></div>
+              <div ref={aboutMeRef}><AboutMe /></div>
               <Footer />
             </>}
           />
-          {/* <Route path="/movies" element={
-            <>
-              <Header />
-              <Footer />
-            </>}
-          /> */}
           <Route path="/movies" element={<Techs />} />
-        </ Routes>
+        </Routes>
       </div>
     </CurrentUserContext.Provider>
   );
