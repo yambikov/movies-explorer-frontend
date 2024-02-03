@@ -12,6 +12,15 @@ body {
   outline: 1px solid #f00 !important;
 }
 
+.link {
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
 
 @import url(./vendor/fonts/fonts.css);
 @import url(./vendor/normalize.css);

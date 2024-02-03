@@ -3,7 +3,6 @@ import './App.css';
 // import React, { useState } from "react"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
 import { Routes } from 'react-router-dom';
-import { useState } from 'react';
 import Promo from "../Promo/Promo";
 import Header from "../Header/Header";
 import NavTab from '../NavTab/NavTab';
@@ -41,6 +40,13 @@ function App() {
               <Footer />
             </>}
           />
+          {/* <Route path="/movies" element={
+            <>
+              <Header />
+              <Footer />
+            </>}
+          /> */}
+          <Route path="/movies" element={<Techs />} />
         </ Routes>
       </div>
     </CurrentUserContext.Provider>

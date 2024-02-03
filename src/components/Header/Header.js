@@ -1,23 +1,30 @@
 import React from "react";
 import Logo from "../Logo/Logo";
-import Link from "../Link/Link";
 import Button from "../Button/Button";
+import { NavLink, Link } from 'react-router-dom';
 // import { useState } from "react";
 
 function Header(props) {
 
-  const isAuthorized = true;
+  const isAuthorized = false;
 
   const unauthorizedHeader = (
     <div className="header__auth-wrapper">
       <Link
-        href="#films"
-        label="Регистрация"
-        className="header__registration"
-      />
-      <Button
+        to="/signup"
+        className="header__registration link">
+        Регистрация
+      </Link>
+
+      {/* <Button
         className="button__login"
-        text="Войти" />
+        text="Войти" /> */}
+
+      <Link
+        to="/signin"
+        className="button button__login">
+        Войти
+      </Link>
     </div>
   );
 
@@ -26,18 +33,20 @@ function Header(props) {
       <nav className="header__navigation">
         <ul className="header__navigation-list">
           <li>
-            <Link
-              href="#films"
-              label="Фильмы"
-              className="header__navigation-item"
-            />
+            <NavLink
+              to="/movies"
+              className="header__navigation-item link"
+              activeClassName="">
+              Фильмы
+            </NavLink>
           </li>
           <li>
-            <Link
-              href="#films"
-              label="Сохраненные фильмы"
-              className="header__navigation-item"
-            />
+            <NavLink
+              to="/movies"
+              className="header__navigation-item link"
+              activeClassName="">
+              Сохраненные фильмы
+            </NavLink>
           </li>
         </ul>
       </nav>
@@ -50,9 +59,9 @@ function Header(props) {
   return (
     <header className="header">
       <div className="header__wrapper">
-          <Logo />
-          {isAuthorized ? authorizedHeader : unauthorizedHeader}
-        </div>
+        <Logo />
+        {isAuthorized ? authorizedHeader : unauthorizedHeader}
+      </div>
 
     </header>
   )

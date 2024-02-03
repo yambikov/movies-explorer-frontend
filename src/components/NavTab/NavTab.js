@@ -1,5 +1,6 @@
 import React from "react";
-import Link from "../Link/Link";
+// import Link from "../Link/Link";
+import { Link } from "react-router-dom";
 
 function NavTab(props) {
   return (
@@ -8,24 +9,26 @@ function NavTab(props) {
         <ul className="navtab__navigation-list">
           <li>
             <Link
-              href="#about"
-              label="О проекте"
-              className="navtab__navigation-item"
-            />
+              to="#about"
+              className="navtab__navigation-item link">
+              О проекте
+            </Link>
           </li>
           <li>
             <Link
-              href="#technologies"
-              label="Технологии"
-              className="navtab__navigation-item"
-            />
+              to="#technologies"
+              className="navtab__navigation-item link">
+              Технологии
+            </Link>
           </li>
           <li>
             <Link
-              href="#student"
-              label="Студент"
-              className="navtab__navigation-item"
-            />
+              to="#student"
+              className="navtab__navigation-item link">
+              Студент
+            </Link>
+
+
           </li>
         </ul>
       </nav>
