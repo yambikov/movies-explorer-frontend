@@ -36,7 +36,7 @@
 .button__account {
   display: inline-flex;
   align-items: center;
-  background-color: #073042;
+  background-color: rgba(0, 0, 0, 0);
   color: #fff;
   border: none;
   font-size: 13px;
@@ -53,4 +53,12 @@
   background-image: url('../../images/profile-icon.svg');
   background-size: cover;
   margin-left: 8px;
+}
+
+.button__account_color_black {
+  border: none;
+}
+
+.button__account_color_black::after {
+  background-image: url('../../images/profile-icon_black.svg');
 }

@@ -5,6 +5,10 @@
   display: flex;
 }
 
+.header_color_black {
+  background: #202020;
+}
+
 .header__wrapper {
   width: 100%;
   display: flex;

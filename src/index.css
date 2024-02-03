@@ -35,4 +35,5 @@ body {
 @import url(./components/AboutMe/AboutMe.css);
 @import url(./components/Link/Link.css);
 @import url(./components/Footer/Footer.css);
-@import url(./components/Button/Button.css)
+@import url(./components/Button/Button.css);
+@import url(./components/SearchForm/SearchForm.css);

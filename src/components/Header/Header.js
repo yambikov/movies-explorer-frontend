@@ -1,12 +1,15 @@
 import React from "react";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 // import { useState } from "react";
 
 function Header(props) {
 
-  const isAuthorized = false;
+  const location = useLocation();
+  const headerClass = location.pathname !== '/' ? 'header header_color_black' : 'header';
+  const headerIconClass = location.pathname !== '/' ? 'button__account button__account_color_black' : 'button__account';
+  const isAuthorized = true;
 
   const unauthorizedHeader = (
     <div className="header__auth-wrapper">
@@ -51,13 +54,13 @@ function Header(props) {
         </ul>
       </nav>
       <Button
-        className="button__account"
+        className={headerIconClass}
         text="Аккаунт" />
     </div>
   );
 
   return (
-    <header className="header">
+    <header className={headerClass}>
       <div className="header__wrapper">
         <Logo />
         {isAuthorized ? authorizedHeader : unauthorizedHeader}
