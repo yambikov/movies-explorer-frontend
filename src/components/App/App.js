@@ -3,6 +3,7 @@ import './App.css';
 // import React, { useState } from "react"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
 import { Routes } from 'react-router-dom';
+import { useState } from 'react';
 import Promo from "../Promo/Promo";
 import Header from "../Header/Header";
 import NavTab from '../NavTab/NavTab';
@@ -14,10 +15,17 @@ import AboutMe from '../AboutMe/AboutMe';
 import Footer from '../Footer/Footer';
 
 
+
 // State для хранения данных о текущем пользователе
 // const [currentUser, setCurrentUser] = useState({})
 
+
+
+
 function App() {
+
+  // const [loggedIn, setLoggedIn] = useState(true);
+
   return (
     <CurrentUserContext.Provider>
       <div className="root brd">

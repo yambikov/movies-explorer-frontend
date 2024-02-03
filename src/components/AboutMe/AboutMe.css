@@ -13,6 +13,12 @@
   }
 }
 
+@media screen and (min-width: 481px) and (max-width: 658px) {
+  .about-me__wrapper {
+    padding: 17px 18px 0;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .about-me__wrapper {
     padding: 20px 14px 0;
@@ -23,9 +29,6 @@
   display: flex;
   justify-content: space-between;
   padding-top: 68px;
-
-  flex-direction: column-reverse;
-  align-items: center;
 }
 
 @media screen and (max-width: 480px) {
@@ -175,6 +178,13 @@
     width: 292px;
     height: 352px;
     flex-shrink: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about-me__photo {
+    width: 100%;
+    height: auto;
   }
 }
 
