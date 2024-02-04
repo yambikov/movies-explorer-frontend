@@ -46,7 +46,7 @@ function MoviesCard(props) {
 
       <div className="movie-card__container">
         <div className="movie-card__info">
-          <h2 className="movie-card__title">Имя карточки</h2>
+          <h2 className="movie-card__title">Gimme Danger. История Игги и The Stooges</h2>
           <span className="movie-card__chrono">1ч 3м</span>
         </div>
         <button className='movie-card__like-button' type="button"></button>

@@ -18,11 +18,6 @@ function MoviesCardList(props) {
           <MoviesCard />
           <MoviesCard />
           <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
         </div>
       </div>
     </section>
