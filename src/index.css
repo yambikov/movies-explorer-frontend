@@ -37,3 +37,5 @@ body {
 @import url(./components/Footer/Footer.css);
 @import url(./components/Button/Button.css);
 @import url(./components/SearchForm/SearchForm.css);
+@import url(./components/MoviesCardList/MoviesCardList.css);
+@import url(./components/MoviesCard/MoviesCard.css);
