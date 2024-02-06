@@ -6,6 +6,10 @@ body {
   background-color: #202020;
   color: white;
 }
+/* .root {
+  display: flex;
+  flex-direction: column;
+} */
 
 .brd * {
   /* outline: red solid 1px; */

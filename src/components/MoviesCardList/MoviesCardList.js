@@ -8,17 +8,14 @@ function MoviesCardList(props) {
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
         <div className="movies-card-list__container">
-          {/* <div className="movies-card-list__card">
-          </div> */}
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
           <MoviesCard />
           <MoviesCard />
           <MoviesCard />
           <MoviesCard />
           <MoviesCard />
         </div>
+        <button type="button" className="movies-card-list__button link">Ещё</button>
+        {/* <div className="movies-card-list__button">122222333333</div> */}
       </div>
     </section>
   );

@@ -30,6 +30,12 @@
   padding-top: 60px;
 }
 
+@media screen and (max-width: 850px) {
+  .search-form__form {
+    padding-top: 77px;
+  }
+}
+
 .search-form__input {
   width: calc(100% - 20px);
   padding: 0;
@@ -67,6 +73,12 @@
   border-bottom: 1px solid #424242;
 }
 
+@media screen and (min-width: 480px) and (max-width: 850px) {
+  .search-form__short-films {
+    padding-bottom: 52px;
+  }
+}
+
 .search-form__toggle-button {
   background-color: rgba(0, 0, 0, 0);
   height: 20px;
@@ -83,3 +95,10 @@
   color: #fff;
   margin: 0;
 }
+
+@media screen and (max-width: 480px) {
+  .search-form__short-films-text {
+    font-size: 11px;
+    line-height: 164%;
+  }
+} 
