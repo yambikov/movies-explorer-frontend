@@ -4,7 +4,7 @@
 }
 
 .about-me__wrapper {
-  padding: 0 70px;
+  padding: 0 70px 26px;
 }
 
 @media screen and (max-width: 768px) {

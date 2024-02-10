@@ -6,6 +6,8 @@ import { Route } from "react-router";
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 
 function App() {
@@ -13,6 +15,10 @@ function App() {
     <CurrentUserContext.Provider>
       <div className="root brd">
         <Routes>
+          <Route path="/signin" element={<Login />} />
+          {/* <Route path="/signup" element={<Login onLogin={onLogin} />} /> */}
+          {/* <Route path="/signin" element={<Register onRegister={onRegister} />}/> */}
+          <Route path="/signup" element={<Register />}/>
           <Route path="/" element={
             <>
               <Header />

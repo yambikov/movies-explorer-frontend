@@ -9,7 +9,7 @@ function Header(props) {
   const location = useLocation();
   const headerClass = location.pathname !== '/' ? 'header header_color_black' : 'header';
   const headerIconClass = location.pathname !== '/' ? 'button__account button__account_color_black' : 'button__account';
-  const isAuthorized = true;
+  const isAuthorized = false;
 
   const unauthorizedHeader = (
     <div className="header__auth-wrapper">
