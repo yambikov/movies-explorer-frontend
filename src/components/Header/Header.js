@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../Logo/Logo";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 import { NavLink, Link, useLocation } from 'react-router-dom';
 // import { useState } from "react";
 
@@ -8,8 +8,8 @@ function Header(props) {
 
   const location = useLocation();
   const headerClass = location.pathname !== '/' ? 'header header_color_black' : 'header';
-  const headerIconClass = location.pathname !== '/' ? 'button__account button__account_color_black' : 'button__account';
-  const isAuthorized = false;
+  const headerIconClass = location.pathname !== '/' ? 'header-button__account header-button__account_color_black' : 'header-button__account';
+  const isAuthorized = true;
 
   const unauthorizedHeader = (
     <div className="header__auth-wrapper">
@@ -20,12 +20,12 @@ function Header(props) {
       </Link>
 
       {/* <Button
-        className="button__login"
+        className="header-button__login"
         text="Войти" /> */}
 
       <Link
         to="/signin"
-        className="button button__login">
+        className="button header-button__login">
         Войти
       </Link>
     </div>
@@ -53,9 +53,11 @@ function Header(props) {
           </li>
         </ul>
       </nav>
-      <Button
-        className={headerIconClass}
-        text="Аккаунт" />
+      <Link
+        className={`link ${headerIconClass}`}
+        to="/profile">
+        Аккаунт
+      </Link>
     </div>
   );
 

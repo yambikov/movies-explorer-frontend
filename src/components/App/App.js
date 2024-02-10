@@ -19,6 +19,7 @@ function App() {
           {/* <Route path="/signup" element={<Login onLogin={onLogin} />} /> */}
           {/* <Route path="/signin" element={<Register onRegister={onRegister} />}/> */}
           <Route path="/signup" element={<Register />}/>
+          <Route path='/profile' element={<h1>Profile</h1>} />
           <Route path="/" element={
             <>
               <Header />

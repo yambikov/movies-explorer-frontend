@@ -79,7 +79,6 @@ const Login = ({ onLogin }) => {
             </Link>
           </p>
         </form>
-
       </section>
     </main>
   );
