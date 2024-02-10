@@ -1,0 +1,65 @@
+
+.button {
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:hover {
+  opacity: 0.7;
+}
+
+.button__login {
+  width: 76px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 3px;
+  background: #3ddc84;
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 133.333% */
+  text-decoration: none;
+}
+
+@media screen and (max-width: 480px) {
+  .button__login {
+    width: 54px;
+    height: 26px
+  }
+}
+
+.button__account {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  color: #fff;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 12px;
+  position: relative;
+}
+
+.button__account::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../../images/profile-icon.svg');
+  background-size: cover;
+  margin-left: 8px;
+}
+
+.button__account_color_black {
+  border: none;
+}
+
+.button__account_color_black::after {
+  background-image: url('../../images/profile-icon_black.svg');
+}
