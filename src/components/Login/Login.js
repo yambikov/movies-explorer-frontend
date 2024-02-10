@@ -1,86 +1,88 @@
-import React, {useState} from "react"
+import React, { useState } from "react";
+import Input from "../Input/Input";
+import Logo from "../Logo/Logo";
+import { Link } from "react-router-dom"
 
-const Login = ({onLogin}) => {
+const Login = ({ onLogin }) => {
   const [formValue, setFormValue] = useState({
     password: "",
     email: "",
-  })
+  });
 
-  const [isFormValid, setIsFormValid] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    onLogin(formValue.password, formValue.email)
-  }
+    e.preventDefault();
+    onLogin(formValue.password, formValue.email);
+  };
 
   const handleChange = (e) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
 
     setFormValue({
       ...formValue,
       [name]: value,
-    })
+    });
 
-    validateForm()
-  }
+    validateForm();
+  };
 
   // Функция валидации для проверки, является ли форма валидной
   const validateForm = () => {
-    const {email, password} = formValue
+    const { email, password } = formValue;
 
-    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    const isPasswordValid = password.length >= 6
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isPasswordValid = password.length >= 6;
 
-    setIsFormValid(isEmailValid && isPasswordValid)
-  }
+    setIsFormValid(isEmailValid && isPasswordValid);
+  };
 
   return (
-    <main>
+    <main className="register">
       <section className="auth">
-        <form
-          className="auth__form"
-          name="registration"
-          onSubmit={handleSubmit}
-        >
-          <h2 className="auth__title">Добро пожаловать!</h2>
-          <input
-            className="auth__item"
+        <Logo />
+        <form className="auth__form" name="registration" onSubmit={handleSubmit}>
+          <h2 className="auth__title">Рады видеть!</h2>
+          {/* Используем компонент Input вместо прямого использования input */}
+          <Input
+            id="email"
             name="email"
             type="email"
             placeholder="Email"
             minLength={2}
             maxLength={30}
             autoComplete="off"
-            required
             value={formValue.email}
             onChange={handleChange}
           />
-          <span className="input-error-name error" />
-          <input
-            className="auth__item"
+          <Input
+            id="password"
             name="password"
             type="password"
             placeholder="Пароль"
-            required
             autoComplete="off"
             value={formValue.password}
             onChange={handleChange}
           />
-          <span className="input-error-link error" />
 
           <button
-            className={`auth__button ${
-              isFormValid ? "auth__button_type_active" : ""
-            }`}
+            className={`auth__button auth__button_login ${isFormValid ? "auth__button_type_active" : ""}`}
             type="submit"
             disabled={!isFormValid}
           >
             Войти
           </button>
+          <p className="auth__text">
+            Ещё не зарегистрированы?
+            <Link className="auth__login-link" to="/signup">
+              Регистрация
+            </Link>
+          </p>
         </form>
+
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
