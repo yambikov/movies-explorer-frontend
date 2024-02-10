@@ -8,6 +8,7 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Profile from '../Profile/Profile';
 
 
 function App() {
@@ -18,8 +19,15 @@ function App() {
           <Route path="/signin" element={<Login />} />
           {/* <Route path="/signup" element={<Login onLogin={onLogin} />} /> */}
           {/* <Route path="/signin" element={<Register onRegister={onRegister} />}/> */}
-          <Route path="/signup" element={<Register />}/>
-          <Route path='/profile' element={<h1>Profile</h1>} />
+          <Route path="/signup" element={<Register />} />
+          <Route path='/profile' element={
+            <>
+              <Header />
+              <Profile />
+
+            </>
+
+          } />
           <Route path="/" element={
             <>
               <Header />
