@@ -14,7 +14,7 @@ function Footer(props) {
           <ul className='footer__navigation'>
             <li className='footer__navigation-item'>
               <Link
-                to="https://github.com/yambikov"
+                to="https://practicum.yandex.ru/"
                 className="footer__link link"
                 target="_blank">
                 Яндекс.Практикум

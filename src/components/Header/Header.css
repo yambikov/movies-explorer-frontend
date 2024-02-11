@@ -67,6 +67,20 @@
   margin-right: 0;
 }
 
+.header__navigation-list_unauthorized {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header__navigation-list_unauthorized li:last-child .header__navigation-item {
+  margin-right: 0;
+}
+
 .header__navigation-item {
   color: #fff;
   text-align: right;
@@ -162,3 +176,6 @@
 .header-button__account_color_black::after {
   background-image: url("../../images/profile-icon_black.svg");
 }
+
+
+

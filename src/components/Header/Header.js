@@ -5,13 +5,13 @@ import { useLocation } from "react-router-dom";
 
 function Header(props) {
   const { pathname } = useLocation();
-  const isAuthorized = true;
+  const isAuthorized = false;
   const headerClass = `header${pathname !== '/' ? ' header_color_black' : ''}`;
   const headerIconClass = `header-button__account${pathname !== '/' ? ' header-button__account_color_black' : ''}`;
 
   const unauthorizedLinks = [
-    { to: "/signup", text: "Регистрация" },
-    { to: "/signin", text: "Войти" }
+    { to: "/signup", text: "Регистрация", className: "header__registration" },
+    { to: "/signin", text: "Войти", className: "button header-button__login" }
   ];
 
   const authorizedLinks = [
@@ -24,9 +24,7 @@ function Header(props) {
     <header className={headerClass}>
       <div className="header__wrapper">
         <Logo />
-        {/* <div className="header__navigation-wrapper"> */}
-          <Navigation links={isAuthorized ? authorizedLinks : unauthorizedLinks} />
-        {/* </div> */}
+        <Navigation links={isAuthorized ? authorizedLinks : unauthorizedLinks} className={isAuthorized ? "header__navigation-list" : "header__navigation-list_unauthorized"} />
       </div>
     </header>
   )

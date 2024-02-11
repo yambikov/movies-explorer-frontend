@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
 
-function Navigation({ links }) {
+function Navigation({ links, className }) {
   return (
     <nav className="header__navigation">
-      <ul className="header__navigation-list">
+      <ul className={className}>
         {links.map((link, index) => (
           <li key={index}>
             <NavLink
