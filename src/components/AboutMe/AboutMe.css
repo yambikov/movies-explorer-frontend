@@ -16,12 +16,13 @@
 @media screen and (min-width: 481px) and (max-width: 658px) {
   .about-me__wrapper {
     padding: 17px 18px 0;
+    
   }
 }
 
 @media screen and (max-width: 480px) {
   .about-me__wrapper {
-    padding: 20px 14px 0;
+    padding: 16px 14px 0;
   }
 }
 
