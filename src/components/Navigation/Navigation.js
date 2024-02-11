@@ -1,7 +1,8 @@
+// Navigation.js
 import React from "react";
 import { NavLink } from 'react-router-dom';
 
-function Navigation({ links, className }) {
+function Navigation({ links, className, onCloseMenu }) {
   return (
     <nav className="header__navigation">
       <ul className={className}>
@@ -10,7 +11,9 @@ function Navigation({ links, className }) {
             <NavLink
               to={link.to}
               className={`header__navigation-item link ${link.className}`}
-              activeClassName="">
+              activeClassName=""
+              onClick={onCloseMenu} // Закрытие меню при клике на ссылку
+            >
               {link.text}
             </NavLink>
           </li>
