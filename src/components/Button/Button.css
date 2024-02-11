@@ -1,4 +1,3 @@
-
 .button {
   transition: opacity 0.3s ease;
   cursor: pointer;
@@ -27,10 +26,33 @@
   text-decoration: none;
 }
 
+.button__submit {
+  width: 100%;
+  background: #4285F4;
+  border-radius: 3px;
+  height: 45px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+  .button__submit {
+    font-size: 12px;
+    margin: auto;
+    max-width: 260px;
+  }
+}
+
+.button__submit:hover {
+  opacity: 0.8;
+}
+
 @media screen and (max-width: 480px) {
   .button__login {
     width: 54px;
-    height: 26px
+    height: 26px;
   }
 }
 
@@ -47,11 +69,11 @@
 }
 
 .button__account::after {
-  content: '';
+  content: "";
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-image: url('../../images/profile-icon.svg');
+  background-image: url("../../images/profile-icon.svg");
   background-size: cover;
   margin-left: 8px;
 }
@@ -61,5 +83,5 @@
 }
 
 .button__account_color_black::after {
-  background-image: url('../../images/profile-icon_black.svg');
+  background-image: url("../../images/profile-icon_black.svg");
 }

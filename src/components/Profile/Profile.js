@@ -1,6 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+  const [isEditMode, setIsEditMode] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Redirect to the main page when logging out
+    navigate("/");
+  };
+
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode);
+  };
+
+  const editModeOff = (
+    <div className="profile__bottom-wrapper">
+      <button
+        className="profile__button link"
+        type="button"
+        aria-label="Редактирование данных профиля"
+        onClick={toggleEditMode}
+      >
+        Редактировать
+      </button>
+      <button
+        className="profile__button profile__button_logout link"
+        type="button"
+        aria-label="Выход из личного кабинета пользователя"
+        onClick={handleLogout}
+      >
+        Выйти из аккаунта
+      </button>
+    </div>
+  );
+
+  const editModeOn = (
+    <div className="profile__bottom-wrapper">
+      <button
+        onClick={toggleEditMode}
+        className="button button__submit"
+      >
+        Сохранить
+      </button>
+    </div>
+  );
+
   return (
     <section className="profile">
       <div className="profile__wrapper">
@@ -20,6 +65,7 @@ function Profile() {
                 autoComplete="on"
                 defaultValue="Виталий"
                 required
+                disabled={!isEditMode}
               />
             </div>
             <div className="profile__divider" />
@@ -34,27 +80,12 @@ function Profile() {
                 autoComplete="on"
                 defaultValue="pochta@yandex.ru"
                 required
+                disabled={!isEditMode}
               />
             </div>
           </fieldset>
-
         </form>
-        <div className="profile__buttons">
-          <button
-            className="profile__button link"
-            type="submit"
-            aria-label="Редактирование данных профиля"
-          >
-            Редактировать
-          </button>
-          <button
-            className="profile__button profile__button_logout link"
-            type="button"
-            aria-label="Выход из личного кабинета пользователя"
-          >
-            Выйти из аккаунта
-          </button>
-        </div>
+        {isEditMode ? editModeOn : editModeOff}
       </div>
     </section>
   );
