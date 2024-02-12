@@ -26,7 +26,7 @@ function Header() {
     setIsMenuOpen(false);
   };
 
-  const headerClass = `header${pathname !== '/' ? ' header_color_black' : ''}`;
+  const headerClass = `${pathname !== '/' ? ' header_color_black' : ' header_color_green'}`;
   const headerIconClass = `header-button__account${pathname !== '/' ? ' header-button__account_color_black' : ''}`;
 
   const unauthorizedLinks = [
@@ -47,11 +47,11 @@ function Header() {
   }
 
   return (
-    <header className={headerClass}>
+    <header className={`header${headerClass}`}>
       <div className="header__wrapper">
         <Logo />
         {isMobile && isAuthorized ? (
-          <div className={isMenuOpen ? "header__menu" : ""}>
+          <div className={isMenuOpen ? `header__menu ${headerClass}` : ""}>
             <button className="burger link" onClick={toggleMenu}>
               <span className={!isMenuOpen ? "burger__icon" : "burger__icon burger__icon_type_close"}></span>
             </button>

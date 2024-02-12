@@ -1,12 +1,16 @@
 .header {
   max-width: 1280px;
-  background: #073042;
+  /* background: #073042; */
   margin: 0 auto;
   display: flex;
 }
 
 .header_color_black {
   background: #202020;
+}
+
+.header_color_green {
+  background: #073042;
 }
 
 .header__wrapper {
@@ -49,24 +53,6 @@
   display: flex;
   margin-left: 46px;
   width: 100%;
-}
-
-.header__navigation-list {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.header__navigation-list li:last-child {
-  margin-left: auto; /* Прижимаем к правому краю */
-}
-
-.header__navigation-list li:last-child .header__navigation-item {
-  margin-right: 0;
 }
 
 .header__navigation-list_unauthorized {
@@ -191,6 +177,7 @@
   cursor: pointer;
   padding: 0;
   font-size: 0;
+  position: relative;
 }
 
 .burger__icon {
@@ -216,24 +203,24 @@
 } */
 
 .burger__icon_type_close {
-  width: 22px;
-  height: 22px;
+  width: 32px;
+  height: 32px;
   background-image: url("../../images/burger_close.svg");
+  position: absolute;
+  top: 22;
+  right: -498px;
+  top: 9px;
 }
 
 .header__menu {
   position: fixed;
   top: 0;
   right: 0;
-  background-color: #073042;
+  /* background-color: #073042; */
   height: 100vh;
   z-index: 2;
   width: 520px;
-
-  
 }
-
-
 
 .header__menu::before {
   content: "";
@@ -261,8 +248,8 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  /* padding: 160px 90px 80px; */
-  /* height: 100%; */
+  padding: 143px 0 82px 0;
+  height: 100%;
 }
 
 .header__navigation_type_left {
@@ -278,7 +265,7 @@
   color: #fff;
   text-align: right;
   font-family: Inter;
-  font-size: 13px;
+  /* font-size: 13px; */
   font-style: normal;
   line-height: 18px;
   text-decoration: none;
@@ -287,5 +274,36 @@
   font-size: 18px;
   text-align: center;
   color: #fff;
+  /* padding: 160px 0 90px 0; */
 }
 
+.header__navigation-item-li {
+  padding-bottom: 31px;
+}
+
+.header__navigation-item-li:last-child {
+  padding: 0;
+  margin-top: auto;
+}
+
+.header__navigation-item-li:last-child .header__navigation-item_type_left {
+  font-size: 13px;
+}
+
+.header__navigation-list {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header__navigation-list li:last-child {
+  margin-left: auto; /* Прижимаем к правому краю */
+}
+
+.header__navigation-list li:last-child .header__navigation-item {
+  margin-right: 0;
+}
