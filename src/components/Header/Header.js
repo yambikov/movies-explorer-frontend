@@ -51,7 +51,7 @@ function Header() {
       <div className="header__wrapper">
         <Logo />
         {isMobile && isAuthorized ? (
-          <>
+          <div className="header__menu">
             <button className="burger link" onClick={toggleMenu}>
             <span className={!isMenuOpen ? "burger__icon" : "burger__icon burger__icon_type_close"}></span>
             </button>
@@ -62,7 +62,7 @@ function Header() {
                 onCloseMenu={closeMenu}
               />
             )}
-          </>
+          </div>
         ) : (
           <Navigation
             links={isAuthorized ? authorizedLinks : unauthorizedLinks}
