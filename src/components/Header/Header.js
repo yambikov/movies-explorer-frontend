@@ -51,15 +51,16 @@ function Header() {
       <div className="header__wrapper">
         <Logo />
         {isMobile && isAuthorized ? (
-          <div className="header__menu">
+          <div className={isMenuOpen ? "header__menu" : ""}>
             <button className="burger link" onClick={toggleMenu}>
-            <span className={!isMenuOpen ? "burger__icon" : "burger__icon burger__icon_type_close"}></span>
+              <span className={!isMenuOpen ? "burger__icon" : "burger__icon burger__icon_type_close"}></span>
             </button>
             {isMenuOpen && (
               <Navigation
                 links={authorizedLinks}
-                className="header__navigation-list"
+                className={!isMenuOpen ? "header__navigation-list" : "header__navigation-list_type_left"}
                 onCloseMenu={closeMenu}
+                isMenuOpen={isMenuOpen}
               />
             )}
           </div>
