@@ -17,7 +17,7 @@ function SearchForm(props) {
           <button type="submit" className="search-form__submit-button link"></button>
         </form>
         <div className="search-form__short-films">
-          <button className="search-form__toggle-button link" onClick={toggleButton}>
+          <button className="search-form__toggle-button" onClick={toggleButton}>
             <img src={isToggled ? togglerOn : togglerOff} alt="Toggle" />
           </button>
           <p className="search-form__short-films-text">Короткометражки</p>

@@ -3,15 +3,17 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 
 function Navigation({ links, className, onCloseMenu, isMenuOpen }) {
+  const navigationClass = !isMenuOpen ? "header__navigation" : "header__navigation_type_left";
+  const listItemClass = isMenuOpen ? "header__navigation-item-li" : "";
+
   return (
-    <nav className={!isMenuOpen ? "header__navigation" : "header__navigation_type_left"}>
+    <nav className={navigationClass}>
       <ul className={className}>
         {links.map((link) => (
-          // <li>
-          <li className={isMenuOpen ? "header__navigation-item-li" : ""}>
+          <li className={listItemClass} key={link.to}>
             <NavLink
               to={link.to}
-              activeClassName=""
+              activeClassName="link_active"
               onClick={onCloseMenu} // Закрытие меню при клике на ссылку
               className={!isMenuOpen ? `header__navigation-item link ${link.className}` : `header__navigation-item_type_left link ${link.className}`}
             >
