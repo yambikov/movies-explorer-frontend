@@ -9,6 +9,11 @@ const Login = ({ onLogin }) => {
     email: "",
   });
 
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
+
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleSubmit = (e) => {
@@ -24,16 +29,25 @@ const Login = ({ onLogin }) => {
       [name]: value,
     });
 
-    validateForm();
+    validateForm(name, value);
   };
 
-  // Функция валидации для проверки, является ли форма валидной
   const validateForm = () => {
     const { email, password } = formValue;
+    let emailError = '';
+    let passwordError = '';
 
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const isPasswordValid = password.length >= 6;
+    if (!isEmailValid) {
+      emailError = 'Что-то пошло не так...'; // Сообщение об ошибке для email
+    }
 
+    const isPasswordValid = password.length >= 6;
+    if (!isPasswordValid) {
+      passwordError = 'Что-то пошло не так...'; // Сообщение об ошибке для пароля
+    }
+
+    setErrors({ email: emailError, password: passwordError });
     setIsFormValid(isEmailValid && isPasswordValid);
   };
 
@@ -43,7 +57,6 @@ const Login = ({ onLogin }) => {
         <Logo />
         <form className="auth__form" name="registration" onSubmit={handleSubmit}>
           <h2 className="auth__title">Рады видеть!</h2>
-          {/* Используем компонент Input вместо прямого использования input */}
           <Input
             id="email"
             name="email"
@@ -54,6 +67,8 @@ const Login = ({ onLogin }) => {
             autoComplete="off"
             value={formValue.email}
             onChange={handleChange}
+            isValid={!errors.email}
+            errorMessage={errors.email}
           />
           <Input
             id="password"
@@ -61,8 +76,11 @@ const Login = ({ onLogin }) => {
             type="password"
             placeholder="Пароль"
             autoComplete="off"
+            minLength={6}
             value={formValue.password}
             onChange={handleChange}
+            isValid={!errors.email}
+            errorMessage={errors.password}
           />
 
           <button

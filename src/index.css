@@ -11,7 +11,7 @@ body {
   flex-direction: column;
 } */
 
-.brd * {
+.brd1 * {
   /* outline: red solid 1px; */
   outline: 1px solid #f00 !important;
 }

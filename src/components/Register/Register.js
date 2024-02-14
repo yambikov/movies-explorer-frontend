@@ -10,6 +10,11 @@ function Register({ onRegister }) {
     password: "",
   })
 
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
+
   const [isFormValid, setIsFormValid] = useState(false)
 
   function handleSubmit(e) {
@@ -26,17 +31,31 @@ function Register({ onRegister }) {
       [name]: value,
     })
 
-    validateForm()
+    validateForm(name, value)
   }
 
   // Функция валидации для проверки, является ли форма валидной
   const validateForm = () => {
-    const { name, email, password } = formValue
+    const { name, email, password } = formValue;
+    let nameError = '';
+    let emailError = '';
+    let passwordError = '';
+    
 
-    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    const isPasswordValid = password.length >= 6
-    const isNameValid = name.length >= 2
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isEmailValid) {
+      emailError = 'Что-то пошло не так...'; // Сообщение об ошибке для email
+    }
 
+    const isPasswordValid = password.length >= 6;
+    if (!isPasswordValid) {
+      passwordError = 'Что-то пошло не так...'; // Сообщение об ошибке для пароля
+    }
+    const isNameValid = name.length >= 2;
+    if (!isNameValid) {
+      nameError = 'Что-то пошло не так...'; // Сообщение об ошибке для имени
+    }
+    setErrors({ email: emailError, password: passwordError, name: nameError });
     setIsFormValid(isNameValid && isEmailValid && isPasswordValid)
   }
 
@@ -61,6 +80,9 @@ function Register({ onRegister }) {
             autoComplete="off"
             value={formValue.name}
             onChange={handleChange}
+            isValid={!errors.name}
+            errorMessage={errors.name}
+
           />
           <Input
             id="email"
@@ -72,6 +94,8 @@ function Register({ onRegister }) {
             autoComplete="off"
             value={formValue.email}
             onChange={handleChange}
+            isValid={!errors.email}
+            errorMessage={errors.email}
           />
           <Input
             id="password"
@@ -82,6 +106,8 @@ function Register({ onRegister }) {
             autoComplete="off"
             value={formValue.password}
             onChange={handleChange}
+            isValid={!errors.password}
+            errorMessage={errors.password}
           />
 
           <button

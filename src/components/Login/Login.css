@@ -157,6 +157,12 @@
   color: #ee3465;
 }
 
+.input-error-name {
+  display: block;
+  height: 13px;
+  padding-top: 9px;
+}
+
 .popup__input_type_error {
   border-bottom: solid 1px #ee3465;
   font-family: "Inter";
