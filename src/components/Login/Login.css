@@ -11,6 +11,7 @@
   font-family: Inter;
   display: flex;
   flex-direction: column;
+  padding: 69px 0 0 0;
 }
 
 @media screen and (max-width: 480px) {
@@ -20,7 +21,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
-    padding: 0 29px;
+    padding: 57px 29px 0;
   }
 }
 

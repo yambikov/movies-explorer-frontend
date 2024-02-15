@@ -37,7 +37,7 @@ function Header() {
   // Стандартные ссылки для авторизованных пользователей
   let authorizedLinks = [
     { to: "/movies", text: "Фильмы" },
-    { to: "/savedmovies", text: "Сохраненные фильмы" },
+    { to: "/saved-movies", text: "Сохраненные фильмы" },
     { to: "/profile", text: "Аккаунт", className: headerIconClass }
   ];
 

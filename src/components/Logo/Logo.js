@@ -3,7 +3,7 @@ import logoImage from "../../images/logo.svg"
 
 const Logo = () => {
   return (
-    <a href="/">
+    <a className='logo' href="/">
       <img src={logoImage} alt="Логотип" />
     </a>
   );

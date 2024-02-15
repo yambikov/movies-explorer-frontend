@@ -28,6 +28,8 @@
   height: 203px;
   background-position: center;
   background-size: cover;
+
+  background-image: url(https://allbestmovies.ru/uploads/posts/2019-11/1574668630_7fa899cc59a6669cb82376f6313c69e8_ce_1484x925x0x655_cropped_960x600.jpg);
 }
 
 @media screen and (min-width: 480px) and (max-width: 850px) {
@@ -139,6 +141,26 @@
   font-weight: 400;
   font-size: 11px;
   color: #8b8b8b;
+}
+
+.movie-card__saved-movie-card:hover {
+cursor: pointer;
+}
+
+/* .movie-card__saved-movie-delete {
+  background-color: aquamarine;
+} */
+
+.movie-card__saved-movie-card:hover
+.movie-card__saved-movie-delete {
+  cursor: pointer;
+  background-image: url(../../images//card-delete.svg);
+  width: 7px;
+  height: 7px;
+  border: none;
+  padding: 14px 22px 0 0;
+  background-color: rgba(0, 0, 0, 0);
+
 }
 
 

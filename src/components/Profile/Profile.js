@@ -48,7 +48,7 @@ function Profile() {
   return (
     <section className="profile">
       <div className="profile__wrapper">
-        <div>
+        <>
         <h2 className="profile__title">Привет, Виталий!</h2>
         <form className="profile__form" name="profile">
           <fieldset className="profile__fieldset">
@@ -85,7 +85,7 @@ function Profile() {
             </div>
           </fieldset>
         </form>
-        </div>
+        </>
 
         {isEditMode ? editModeOn : editModeOff}
       </div>

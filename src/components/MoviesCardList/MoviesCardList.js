@@ -1,8 +1,11 @@
 // import React, { useState } from 'react';
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { useLocation } from 'react-router-dom';
 
 
 function MoviesCardList(props) {
+  const location = useLocation();
+  const activeLink = location.pathname === "/movies";
 
   return (
     <section className="movies-card-list">
@@ -14,8 +17,7 @@ function MoviesCardList(props) {
           <MoviesCard />
           <MoviesCard />
         </div>
-        <button type="button" className="movies-card-list__button link">Ещё</button>
-        {/* <div className="movies-card-list__button">122222333333</div> */}
+        {activeLink && <button type="button" className="movies-card-list__button link">Ещё</button>}
       </div>
     </section>
   );
