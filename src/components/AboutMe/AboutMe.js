@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import avatar from '../../images//2024-02-15 08.42.59.jpg';
 import { Link } from "react-router-dom"
 
-// Возможно создание отдельного компонента для элементов портфолио
 const PortfolioLink = ({ href, children }) => (
   <li className='about-me__portfolio-item link'>
-    <a href={href} className="about-me__portfolio-link" target="_blank" rel="noopener noreferrer">
-      {children}
+    <a href={href} className='about-me__portfolio-link-container' target="_blank" rel="noopener noreferrer">
+      <h3 className="about-me__portfolio-link">{children}</h3>
+      <p className="about-me__portfolio-link">↗</p> 
     </a>
-    <a href={href} className="about-me__portfolio-link" target="_blank" rel="noopener noreferrer">↗</a>
   </li>
 );
 
-function AboutMe() {
+const AboutMe = forwardRef((props, ref) => {
+  
+
   return (
-    <section className="about-me">
+    <section ref={ref} className="about-me">
       <div className='about-me__wrapper'>
         <SectionHeader title="Студент" />
         <div className="about-me__section-wrapper">
@@ -47,6 +48,6 @@ function AboutMe() {
       </div>
     </section>
   );
-}
+})
 
 export default AboutMe;

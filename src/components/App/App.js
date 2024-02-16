@@ -17,7 +17,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 function App() {
   return (
     <CurrentUserContext.Provider>
-      <div className="root brd">
+      {/* <div className="root brd"> */}
         <Routes>
           <Route path="*" element={<PageNotFound />} />
           <Route path="/signin" element={<Login />} />
@@ -56,7 +56,7 @@ function App() {
             </>
           } />
         </Routes>
-      </div>
+      {/* </div> */}
     </CurrentUserContext.Provider>
   );
 }

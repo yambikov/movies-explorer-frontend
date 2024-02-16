@@ -255,6 +255,7 @@
   line-height: 50px; /* 166.667% */
   letter-spacing: -1.2px;
   text-decoration: none;
+  margin: 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -274,5 +275,14 @@
     font-weight: 400;
     line-height: 28px; /* 155.556% */
     letter-spacing: -0.72px;
+
   }
+}
+
+.about-me__portfolio-link-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  text-decoration: none;
 }

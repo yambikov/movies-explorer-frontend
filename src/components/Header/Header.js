@@ -27,7 +27,7 @@ function Header() {
   };
 
   const headerClass = `${pathname !== '/' ? ' header_color_black' : ' header_color_green'}`;
-  const headerIconClass = `header-button__account${pathname !== '/' ? ' header-button__account_color_black' : ''}`;
+  const headerIconClass = `header-button__account${pathname !== '/' ||  isMenuOpen ? ' header-button__account_color_black' : ''}`;
 
   const unauthorizedLinks = [
     { to: "/signup", text: "Регистрация", className: "header__registration" },
@@ -51,7 +51,7 @@ function Header() {
       <div className="header__wrapper">
         <Logo />
         {isMobile && isAuthorized ? (
-          <div className={isMenuOpen ? `header__menu ${headerClass}` : ""}>
+          <div className={isMenuOpen ? `header__menu header_color_black` : ""}>
             <button className="burger link" onClick={toggleMenu}>
               <span className={!isMenuOpen ? "burger__icon" : "burger__icon burger__icon_type_close"}></span>
             </button>

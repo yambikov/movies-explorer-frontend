@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 
-function Techs(props) {
+// Обертываем компонент в forwardRef, чтобы можно было использовать ref из родительских компонентов
+const Techs = forwardRef((props, ref) => {
   return (
-    <section className="techs">
+    <section ref={ref} className="techs">
       <div className='techs__wrapper'>
         <SectionHeader title="Технологии" />
         <article className="techs__details">
@@ -19,10 +20,9 @@ function Techs(props) {
             <li className='techs__item'>mongoDB</li>
           </ul>
         </article>
-
       </div>
     </section>
   );
-}
+});
 
 export default Techs;

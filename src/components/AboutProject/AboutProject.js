@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 
-function AboutProject(props) {
+const AboutProject = forwardRef((props, ref) => {
   return (
-    <section className="about">
+    <section ref={ref} className="about">
       <div className='about__wrapper'>
-      <SectionHeader title="О проекте" />
+        <SectionHeader title="О проекте" />
         <article className="about__details">
           <div className="about__item">
             <h3 className="about__subtitle">Дипломный проект включал 5 этапов</h3>
@@ -29,6 +29,6 @@ function AboutProject(props) {
       </div>
     </section>
   );
-}
+});
 
 export default AboutProject;

@@ -5,11 +5,11 @@ import SearchForm from '../SearchForm/SearchForm';
 
 function SavedMovies(props) {
   return (
-    <>
-    <SearchForm />
-    <MoviesCardList />
-    </>
-    
+    <main>
+      <SearchForm />
+      <MoviesCardList />
+    </main>
+
   );
 }
 

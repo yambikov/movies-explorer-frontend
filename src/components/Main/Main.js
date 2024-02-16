@@ -13,13 +13,13 @@ function Main() {
   const aboutMeRef = useRef(null);
 
   return (
-    <>
+    <main>
       <Promo />
       <NavTab aboutRef={aboutRef} techsRef={techsRef} aboutMeRef={aboutMeRef} />
-      <div ref={aboutRef}><AboutProject /></div>
-      <div ref={techsRef}><Techs /></div>
-      <div ref={aboutMeRef}><AboutMe /></div>
-    </>
+      <AboutProject ref={aboutRef} />
+      <Techs ref={techsRef} />
+      <AboutMe ref={aboutMeRef} />
+    </main>
 
   );
 }
