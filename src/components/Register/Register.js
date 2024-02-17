@@ -23,6 +23,7 @@ function Register({ onRegister }) {
 
           <Input
             label="Имя"
+            placeholder="Имя"
             htmlFor="name"
             id="name"
             name="name"
@@ -36,6 +37,7 @@ function Register({ onRegister }) {
             maxLength={30}
           />
           <Input
+            placeholder="E-mail"
             label="Email"
             htmlFor="email"
             id="email"
@@ -49,6 +51,7 @@ function Register({ onRegister }) {
           />
 
           <Input
+            placeholder="Пароль"
             label="Пароль"
             htmlFor="password"
             id="password"
