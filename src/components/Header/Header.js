@@ -7,7 +7,7 @@ function Header() {
   const { pathname } = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isAuthorized = true; // Это значение должно быть определено в зависимости от состояния аутентификации пользователя
+  const isAuthorized = false; // Это значение должно быть определено в зависимости от состояния аутентификации пользователя
 
   const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth <= 768);
