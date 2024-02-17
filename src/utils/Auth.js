@@ -33,3 +33,20 @@ export const login = (email, password) => {
     }
   })
 }
+
+export const checkToken = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    if (res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(res.status)
+    }
+  })
+}

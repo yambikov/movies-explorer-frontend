@@ -14,9 +14,16 @@ import PageNotFound from "../PageNotFound/PageNotFound"
 import SavedMovies from "../SavedMovies/SavedMovies"
 import * as auth from "../../utils/Auth"
 import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 function App() {
   const navigate = useNavigate()
+
+    // Проверка залогинен ли пользователь при загрузке страницы
+    useEffect(() => {
+      handleTokenCheck();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
   function onRegister(name, email, password) {
     auth
@@ -46,6 +53,24 @@ function App() {
         }
       })
       .catch((err) => console.log(err))
+  };
+
+  // Проверка валидности токена
+  function handleTokenCheck() {
+    if (localStorage.getItem("jwt")) {
+      const token = localStorage.getItem("jwt");
+      auth
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            console.log("token is valid");;
+            // setLoggedIn(true);
+            // setEmail(res.email);
+            navigate("/", { replace: true });
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
 
