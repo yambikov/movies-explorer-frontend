@@ -1,19 +1,24 @@
 import React, { forwardRef } from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import avatar from '../../images//2024-02-15 08.42.59.jpg';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+
+
 
 const PortfolioLink = ({ href, children }) => (
   <li className='about-me__portfolio-item link'>
     <a href={href} className='about-me__portfolio-link-container' target="_blank" rel="noopener noreferrer">
       <h3 className="about-me__portfolio-link">{children}</h3>
-      <p className="about-me__portfolio-link">↗</p> 
+      <p className="about-me__portfolio-link">↗</p>
     </a>
   </li>
 );
 
 const AboutMe = forwardRef((props, ref) => {
-  
+  const currentUser = useContext(CurrentUserContext);
+
 
   return (
     <section ref={ref} className="about-me">
@@ -22,7 +27,7 @@ const AboutMe = forwardRef((props, ref) => {
         <div className="about-me__section-wrapper">
           <div className="about-me__info-section">
             <div className='about-me__info-container'>
-              <div className="about-me__name">Виктор</div>
+              <div className="about-me__name">{currentUser.name}</div>
               <div className="about-me__info">Фронтенд-разработчик, 35 лет</div>
               <div className="about-me__bio">Я родился в Оренбурге, живу в Москве. Закончил факультет экономики ОГУ, а также режиссерский факультет ЧГИК. Я люблю путешествия, особенно велотуризм. Свой первый код написал 20 лет назад, когда в качестве экзамена по информатике, сделал сайт для своей школы. Работал режиссером на телеканале Россия, строил видеопродакшены в компаниях VK и Сбер. Мне интересно совместить программирование с производством медиаконтента.</div>
               {/* <div className="about-me__bio">Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить.

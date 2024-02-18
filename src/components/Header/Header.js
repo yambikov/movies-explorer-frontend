@@ -3,11 +3,13 @@ import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 import { useLocation } from "react-router-dom";
 
-function Header() {
+function Header(loggedIn) {
   const { pathname } = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isAuthorized = false; // Это значение должно быть определено в зависимости от состояния аутентификации пользователя
+  // const loggedIn = false; // Это значение должно быть определено в зависимости от состояния аутентификации пользователя
+  // console.log(loggedIn);
+  console.log(loggedIn);
 
   const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth <= 768);
@@ -50,7 +52,7 @@ function Header() {
     <header className={`header${headerClass}`}>
       <div className="header__wrapper">
         <Logo />
-        {isMobile && isAuthorized ? (
+        {isMobile && loggedIn ? (
           <div className={isMenuOpen ? `header__menu header_color_black` : ""}>
             <button className="burger link" onClick={toggleMenu}>
               <span className={!isMenuOpen ? "burger__icon" : "burger__icon burger__icon_type_close"}></span>
@@ -66,8 +68,8 @@ function Header() {
           </div>
         ) : (
           <Navigation
-            links={isAuthorized ? authorizedLinks : unauthorizedLinks}
-            className={isAuthorized ? "header__navigation-list" : "header__navigation-list_unauthorized"}
+            links={loggedIn ? authorizedLinks : unauthorizedLinks}
+            className={loggedIn ? "header__navigation-list" : "header__navigation-list_unauthorized"}
           />
         )}
       </div>

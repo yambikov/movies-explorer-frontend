@@ -13,7 +13,7 @@ function Navigation({ links, className, onCloseMenu, isMenuOpen }) {
           <li className={listItemClass} key={link.to}>
             <NavLink
               to={link.to}
-              activeClassName="link_active"
+              // activeClassName="link_active"
               onClick={onCloseMenu} // Закрытие меню при клике на ссылку
               className={!isMenuOpen ? `header__navigation-item link ${link.className}` : `header__navigation-item_type_left link ${link.className}`}
             >

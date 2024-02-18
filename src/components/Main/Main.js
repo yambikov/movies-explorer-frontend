@@ -18,7 +18,8 @@ function Main() {
       <NavTab aboutRef={aboutRef} techsRef={techsRef} aboutMeRef={aboutMeRef} />
       <AboutProject ref={aboutRef} />
       <Techs ref={techsRef} />
-      <AboutMe ref={aboutMeRef} />
+      <AboutMe
+        ref={aboutMeRef} />
     </main>
 
   );

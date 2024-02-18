@@ -6,8 +6,8 @@ function useFormWithValidation() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const errorMessages = {
-    name: "Имя может содержать буквы, пробел и дефис",
-    email: "Пожалуйста, введите корректный email адрес",
+    name: "Имя должно содержать минимум 2 символа",
+    email: "Неверный формат email",
     password: "Пароль должен быть не менее 8 символов",
   };
 

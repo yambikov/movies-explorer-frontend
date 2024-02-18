@@ -71,10 +71,6 @@
   flex-direction: column;
 }
 
-.profile__form {
-  background-color: aquamarine;
-}
-
 .profile__fieldset {
   border: none;
   margin: 0;
@@ -125,7 +121,6 @@
 
 @media screen and (max-width: 800px) {
   .profile__bottom-wrapper {
-
     padding-top: 187px;
   }
 }

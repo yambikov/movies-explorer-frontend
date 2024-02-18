@@ -12,21 +12,47 @@ import Profile from "../Profile/Profile"
 import PageNotFound from "../PageNotFound/PageNotFound"
 // import Preloader from '../Preloader/Preloader';
 import SavedMovies from "../SavedMovies/SavedMovies"
-import * as auth from "../../utils/Auth"
+import MainApi from "../../utils/MainApi"
 import { useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 function App() {
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  // const [userName, setUserName] = useState("");
+  // const [email, setEmail] = useState("")
+  const [currentUser, setCurrentUser] = useState({})
+
   const navigate = useNavigate()
 
-    // Проверка залогинен ли пользователь при загрузке страницы
-    useEffect(() => {
-      handleTokenCheck();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  useEffect(() => {
+    handleTokenCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
+      // apiConfig.getInitialCards()
+      //   .then((res) => {
+      //     setCards(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+
+      MainApi.getUserInfoApi()
+        .then((res) => {
+          setCurrentUser(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
+
 
   function onRegister(name, email, password) {
-    auth
+    MainApi
       .register(name, email, password)
       .then((res) => {
         navigate("/signin", { replace: true })
@@ -42,12 +68,12 @@ function App() {
 
   // Что происходит при логИне
   function onLogin(password, email) {
-    auth
+    MainApi
       .login(password, email)
       .then((res) => {
         if (res) {
           localStorage.setItem("jwt", res.token)
-          // setLoggedIn(true)
+          setLoggedIn(true)
           // setEmail(email)
           navigate("/", { replace: true })
         }
@@ -59,25 +85,36 @@ function App() {
   function handleTokenCheck() {
     if (localStorage.getItem("jwt")) {
       const token = localStorage.getItem("jwt");
-      auth
+      MainApi
         .checkToken(token)
         .then((res) => {
           if (res) {
-            console.log("token is valid");;
-            // setLoggedIn(true);
-            // setEmail(res.email);
+            setLoggedIn(true);
+            // setUserName(res.name);
+            setCurrentUser(res);
+            // setEmail(res.email)
             navigate("/", { replace: true });
           }
         })
         .catch((err) => console.log(err));
     }
+  };
+
+  function handleUpdateUser(data) {
+    MainApi
+      .patchUserInfo(data)
+      .then((res) => {
+        setCurrentUser(res)
+      })
+      .then ((res) => console.log(res))
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
 
-
-
   return (
-    <CurrentUserContext.Provider>
+    <CurrentUserContext.Provider value={currentUser}>
       <Routes>
         <Route path="*" element={<PageNotFound />} />
         <Route path="/signin" element={<Login onLogin={onLogin} />} />
@@ -86,8 +123,8 @@ function App() {
           path="/profile"
           element={
             <>
-              <Header />
-              <Profile />
+              <Header loggedIn={loggedIn} />
+              <Profile handleUpdateUser={handleUpdateUser} />
             </>
           }
         />
@@ -95,7 +132,7 @@ function App() {
           path="/"
           element={
             <>
-              <Header />
+              <Header loggedIn={loggedIn} />
               <Main />
               <Footer />
             </>
@@ -105,7 +142,7 @@ function App() {
           path="/movies"
           element={
             <>
-              <Header />
+              <Header loggedIn={loggedIn} />
               <Movies />
               <Footer />
             </>
@@ -116,7 +153,7 @@ function App() {
           element={
             <>
               {/* <Preloader /> */}
-              <Header />
+              <Header loggedIn={loggedIn} />
               <SavedMovies />
               <Footer />
             </>
