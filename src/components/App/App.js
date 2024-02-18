@@ -1,8 +1,8 @@
 import "./App.css"
-import { CurrentUserContext } from "../../context/CurrentUserContext"
-import { Routes } from "react-router-dom"
+import {CurrentUserContext} from "../../context/CurrentUserContext"
+import {Routes} from "react-router-dom"
 import Header from "../Header/Header"
-import { Route } from "react-router"
+import {Route} from "react-router"
 import Footer from "../Footer/Footer"
 import Main from "../Main/Main"
 import Movies from "../Movies/Movies"
@@ -13,12 +13,11 @@ import PageNotFound from "../PageNotFound/PageNotFound"
 // import Preloader from '../Preloader/Preloader';
 import SavedMovies from "../SavedMovies/SavedMovies"
 import MainApi from "../../utils/MainApi"
-import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import {useNavigate} from "react-router-dom"
+import {useEffect, useState} from "react"
 
 function App() {
-
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false)
   // const [userName, setUserName] = useState("");
   // const [email, setEmail] = useState("")
   const [currentUser, setCurrentUser] = useState({})
@@ -26,9 +25,9 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    handleTokenCheck();
+    handleTokenCheck()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (loggedIn) {
@@ -42,20 +41,18 @@ function App() {
 
       MainApi.getUserInfoApi()
         .then((res) => {
-          setCurrentUser(res);
+          setCurrentUser(res)
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
-  }, [loggedIn]);
-
+  }, [loggedIn])
 
   function onRegister(name, email, password) {
-    MainApi
-      .register(name, email, password)
+    MainApi.register(name, email, password)
       .then((res) => {
-        navigate("/signin", { replace: true })
+        navigate("/signin", {replace: true})
         // setIsInfoTooltipOpen(true)
         // setIsInfoTooltipSuccessed(true)
       })
@@ -64,54 +61,51 @@ function App() {
         // setIsInfoTooltipOpen(true)
         // setIsInfoTooltipSuccessed(false)
       })
-  };
+  }
 
   // Что происходит при логИне
   function onLogin(password, email) {
-    MainApi
-      .login(password, email)
+    MainApi.login(password, email)
       .then((res) => {
         if (res) {
           localStorage.setItem("jwt", res.token)
           setLoggedIn(true)
           // setEmail(email)
-          navigate("/", { replace: true })
+          navigate("/", {replace: true})
         }
       })
       .catch((err) => console.log(err))
-  };
+  }
 
   // Проверка валидности токена
   function handleTokenCheck() {
     if (localStorage.getItem("jwt")) {
-      const token = localStorage.getItem("jwt");
-      MainApi
-        .checkToken(token)
+      const token = localStorage.getItem("jwt")
+      MainApi.checkToken(token)
         .then((res) => {
           if (res) {
-            setLoggedIn(true);
+            setLoggedIn(true)
             // setUserName(res.name);
-            setCurrentUser(res);
+            setCurrentUser(res)
             // setEmail(res.email)
-            navigate("/", { replace: true });
+            navigate("/", {replace: true})
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
     }
-  };
+  }
 
-  function handleUpdateUser(data) {
-    MainApi
-      .patchUserInfo(data)
+  function handleUpdateUser(name, email) {
+    console.log(name, email)
+    MainApi.patchUserInfo({name, email})
       .then((res) => {
         setCurrentUser(res)
       })
-      .then ((res) => console.log(res))
+      .then((res) => console.log(res))
       .catch((err) => {
         console.log(err)
       })
   }
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

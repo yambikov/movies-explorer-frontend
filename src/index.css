@@ -25,7 +25,6 @@ body {
   opacity: 0.7;
 }
 
-
 @import url(./vendor/fonts/fonts.css);
 @import url(./vendor/normalize.css);
 
@@ -47,4 +46,4 @@ body {
 @import url(./components/Login/Login.css);
 @import url(./components/Profile/Profile.css);
 @import url(./components/PageNotFound/PageNotFound.css);
-@import url(./components/Logo/Logo.css)
+@import url(./components/Logo/Logo.css);

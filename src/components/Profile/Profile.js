@@ -1,91 +1,83 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+// Поправить верстку после того, как кнопки поместил в form
+
+import React, { useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import { CurrentUserContext } from "../../context/CurrentUserContext"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
 
-// // Custom hook for form validation and error message
-// const useFormValidation = (formValues) => {
-//   const [isFormValid, setIsFormValid] = useState(false);
-//   const [errorMessage, setErrorMessage] = useState('');
+function Profile({ handleUpdateUser }) {
+  const navigate = useNavigate()
 
-//   useEffect(() => {
-//     const { email, name } = formValues;
-//     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-//     const isNameValid = name.length >= 2;
-//     let errorText = '';
+  const currentUser = useContext(CurrentUserContext)
 
-//     if (!isEmailValid) {
-//       errorText = 'Неверный формат email.';
-//     } else if (!isNameValid) {
-//       errorText = 'Имя должно содержать минимум 2 символа.';
-//     }
+  const { formValue, handleChange, errors, isFormValid, errorMessages } =
+    useFormWithValidation()
 
-//     setErrorMessage(errorText);
-//     setIsFormValid(isEmailValid && isNameValid);
-//   }, [formValues]);
+  const [isEditMode, setIsEditMode] = useState(false)
 
-//   return { isFormValid, errorMessage };
-// };
-
-function Profile({handleUpdateUser}) {
-  const navigate = useNavigate();
-  const currentUser = useContext(CurrentUserContext);
-  // const [data, setData] = useState({
-  //   name: currentUser.name,
-  //   email: currentUser.email,
-  // });
-  const { formValue, handleChange, errors, isFormValid, errorMessages } = useFormWithValidation();
-
-  // const [formValue, setFormValue] = useState({
-  //   name: currentUser.name,
-  //   email: currentUser.email,
-  // });
-  const [isEditMode, setIsEditMode] = useState(false);
-  // const { isFormValid, errorMessage } = useFormValidation(formValue);
-
-  // function handleSubmit(e) {
-  //   console.log('handleSubmit');
-  //   e.preventDefault();
-  //   onLogin(formValue.email, formValue.password);
-  // }
-
-  // function handleChange(e) {
-  //   const { name, value } = e.target;
-  //   setData({ ...data, [name]: value });
-  // }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (await handleUpdateUser(formValue.name, formValue.email)) {
-      setIsEditMode(!isEditMode);
-    }
+  function handleSubmit(e) {
+    e.preventDefault()
+    handleUpdateUser(formValue.name, formValue.email)
+    setIsEditMode(!isEditMode)
   }
 
+  const handleLogout = () => navigate("/")
 
-  const handleLogout = () => navigate("/");
+  const toggleEditMode = () => setIsEditMode(!isEditMode)
 
-  const toggleEditMode = () => setIsEditMode(!isEditMode);
+  const saveButton = (
+    <button
+      type="submit"
+      className={`button button__submit ${isFormValid ? "" : "button__submit_disabled"
+        }`}
+      disabled={!isFormValid}
+    >
+      Сохранить
+    </button>
+  )
+
+  const editAndLogoutButtons = (
+    <>
+      <button
+        className="profile__button link"
+        type="button"
+        aria-label="Редактирование данных профиля"
+        onClick={toggleEditMode}
+      >
+        Редактировать
+      </button>
+      <button
+        className="profile__button profile__button_logout link"
+        type="button"
+        aria-label="Выход из личного кабинета пользователя"
+        onClick={handleLogout}
+      >
+        Выйти из аккаунта
+      </button>
+    </>
+  )
 
   return (
     <section className="profile">
       <div className="profile__wrapper">
         <h2 className="profile__title">Привет, {currentUser.name}!</h2>
-        <form className="profile__form" name="profile">
+        <form className="profile__form" name="profile" onSubmit={handleSubmit}>
           <fieldset className="profile__fieldset">
             <div className="profile__input-wrapper">
-              <label className="profile__label" htmlFor="name">Имя</label>
+              <label className="profile__label" htmlFor="name">
+                Имя
+              </label>
               <input
                 className="profile__input"
                 required
                 disabled={!isEditMode}
                 label="Имя"
-                placeholder="Имя"
                 htmlFor="name"
                 id="name"
                 name="name"
                 type="text"
                 autoComplete="off"
-                value={formValue.name || ""}
+                value={formValue.name || currentUser.name}
                 onChange={handleChange}
                 errorMessage={errors.name && errorMessages.name}
                 pattern="[a-zA-Zа-яА-Я\s-]*"
@@ -95,17 +87,19 @@ function Profile({handleUpdateUser}) {
             </div>
             <div className="profile__divider" />
             <div className="profile__input-wrapper">
-              <label className="profile__label" htmlFor="email">E-mail</label>
+              <label className="profile__label" htmlFor="email">
+                E-mail
+              </label>
               <input
                 className="profile__input"
-                placeholder="E-mail"
+                placeholder={currentUser.email}
                 label="Email"
                 htmlFor="email"
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="off"
-                value={formValue.email || ""}
+                value={formValue.email || currentUser.email}
                 onChange={handleChange}
                 errorMessage={errors.email && errorMessages.email}
                 pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
@@ -114,44 +108,19 @@ function Profile({handleUpdateUser}) {
               />
             </div>
           </fieldset>
+          <div className="profile__bottom-wrapper">
+            <span className="error-message error error__profile">
+              {errors.name && errorMessages.name}
+            </span>
+            <span className="error-message error error__profile">
+              {errors.email && errorMessages.email}
+            </span>
+            {isEditMode ? saveButton : editAndLogoutButtons}
+          </div>
         </form>
-
-        <div className="profile__bottom-wrapper">
-          <span className="error-message error error__profile">{"errorMessage"}</span>
-          {isEditMode ? (
-            <button
-              // onClick={toggleEditMode}
-              buttonType="submit"
-              className={`button button__submit ${isFormValid ? "" : "button__submit_disabled"}`}
-              disabled={!isFormValid}
-              onSubmit={handleSubmit}
-            >
-              Сохранить
-            </button>
-          ) : (
-            <>
-              <button
-                className="profile__button link"
-                type="button"
-                aria-label="Редактирование данных профиля"
-                onClick={toggleEditMode}
-              >
-                Редактировать
-              </button>
-              <button
-                className="profile__button profile__button_logout link"
-                type="button"
-                aria-label="Выход из личного кабинета пользователя"
-                onClick={handleLogout}
-              >
-                Выйти из аккаунта
-              </button>
-            </>
-          )}
-        </div>
       </div>
     </section>
-  );
+  )
 }
 
-export default Profile;
+export default Profile

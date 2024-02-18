@@ -1,24 +1,27 @@
 // import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-import Logo from "../Logo/Logo";
-import Input from "../Input/Input";
+import { Link } from "react-router-dom"
+import Logo from "../Logo/Logo"
+import Input from "../Input/Input"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
 
-
-
 function Register({ onRegister }) {
-  const { formValue, handleChange, errors, isFormValid, errorMessages } = useFormWithValidation();
+  const { formValue, handleChange, errors, isFormValid, errorMessages } =
+    useFormWithValidation()
 
   function handleSubmit(e) {
-    e.preventDefault();
-    onRegister(formValue.name, formValue.email, formValue.password);
+    e.preventDefault()
+    onRegister(formValue.name, formValue.email, formValue.password)
   }
 
   return (
     <main className="register">
       <section className="auth">
         <Logo />
-        <form className="auth__form form" name="registration" onSubmit={handleSubmit}>
+        <form
+          className="auth__form form"
+          name="registration"
+          onSubmit={handleSubmit}
+        >
           <h2 className="auth__title">Добро пожаловать!</h2>
 
           <Input
@@ -65,7 +68,8 @@ function Register({ onRegister }) {
           />
 
           <button
-            className={`auth__button ${isFormValid ? "auth__button_type_active" : ""}`}
+            className={`auth__button ${isFormValid ? "auth__button_type_active" : ""
+              }`}
             type="submit"
             disabled={!isFormValid}
           >
@@ -80,7 +84,7 @@ function Register({ onRegister }) {
         </form>
       </section>
     </main>
-  );
+  )
 }
 
-export default Register;
+export default Register
