@@ -4,7 +4,7 @@ class Api {
     this.headers = options.headers
   }
 
-  _makeRequest(url, method, data) {
+_makeRequest(url, method, data) {
     const requestOptions = {
       method,
       headers: {
@@ -18,10 +18,16 @@ class Api {
     return fetch(`${this.baseUrl}${url}`, requestOptions).then((res) => {
       if (res.ok) {
         return res.json()
+      } else {
+        return res.json()
+        .then((err) => {
+          // throw new Error(errorData.message || `Ошибка: ${res.status}`);
+          throw new Error(err.message);
+        });
       }
-      return Promise.reject(`Ошибка: ${res.status}`)
     })
   }
+
 
   getUserInfoApi() {
     return this._makeRequest("users/me", "GET")

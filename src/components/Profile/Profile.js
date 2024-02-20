@@ -1,24 +1,38 @@
 // Поправить верстку после того, как кнопки поместил в form
 
-import React, { useState, useContext } from "react"
-import { useNavigate } from "react-router-dom"
-import { CurrentUserContext } from "../../context/CurrentUserContext"
+import React, {useState, useContext} from "react"
+import {useNavigate} from "react-router-dom"
+import {CurrentUserContext} from "../../context/CurrentUserContext"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
 
-function Profile({ handleUpdateUser }) {
+function Profile({handleUpdateUser}) {
   const navigate = useNavigate()
 
   const currentUser = useContext(CurrentUserContext)
 
-  const { formValue, handleChange, errors, isFormValid, errorMessages } =
+  const {formValue, handleChange, errors, isFormValid, errorMessages} =
     useFormWithValidation()
 
   const [isEditMode, setIsEditMode] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [serverError, setServerError] = useState(null)
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    handleUpdateUser(formValue.name, formValue.email)
-    setIsEditMode(!isEditMode)
+    setIsLoading(true)
+    try {
+      await handleUpdateUser(
+        formValue.name || currentUser.name,
+        formValue.email || currentUser.email
+      )
+      setIsEditMode(!isEditMode)
+    } catch (error) {
+      const errorMessage =
+        error.message || "При обновлении профиля произошла ошибка."
+      setServerError(errorMessage)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleLogout = () => navigate("/")
@@ -28,11 +42,12 @@ function Profile({ handleUpdateUser }) {
   const saveButton = (
     <button
       type="submit"
-      className={`button button__submit ${isFormValid ? "" : "button__submit_disabled"
-        }`}
+      className={`button button__submit ${
+        isFormValid ? "" : "button__submit_disabled"
+      }`}
       disabled={!isFormValid}
     >
-      Сохранить
+      {isLoading ? <div className="button__preloader"></div> : "Сохранить"}
     </button>
   )
 
@@ -77,12 +92,16 @@ function Profile({ handleUpdateUser }) {
                 name="name"
                 type="text"
                 autoComplete="off"
-                value={formValue.name || currentUser.name}
+                value={
+                  formValue.name !== undefined
+                    ? formValue.name
+                    : currentUser.name
+                }
                 onChange={handleChange}
                 errorMessage={errors.name && errorMessages.name}
-                pattern="[a-zA-Zа-яА-Я\s-]*"
-                minLength={2}
-                maxLength={30}
+                // pattern="[a-zA-Zа-яА-Я\s-]*"
+                // minLength={2}
+                // maxLength={30}
               />
             </div>
             <div className="profile__divider" />
@@ -92,17 +111,21 @@ function Profile({ handleUpdateUser }) {
               </label>
               <input
                 className="profile__input"
-                placeholder={currentUser.email}
+                // placeholder={currentUser.email}
                 label="Email"
                 htmlFor="email"
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="off"
-                value={formValue.email || currentUser.email}
+                value={
+                  formValue.email !== undefined
+                    ? formValue.email
+                    : currentUser.email
+                }
                 onChange={handleChange}
                 errorMessage={errors.email && errorMessages.email}
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                 required
                 disabled={!isEditMode}
               />
@@ -114,6 +137,9 @@ function Profile({ handleUpdateUser }) {
             </span>
             <span className="error-message error error__profile">
               {errors.email && errorMessages.email}
+            </span>
+            <span className="error-message error error__profile">
+              {serverError}
             </span>
             {isEditMode ? saveButton : editAndLogoutButtons}
           </div>

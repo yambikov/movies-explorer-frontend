@@ -97,3 +97,19 @@
 .button__account_color_black::after {
   background-image: url("../../images/profile-icon_black.svg");
 }
+
+.button__preloader {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
