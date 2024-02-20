@@ -1,12 +1,12 @@
 // Поправить верстку после того, как кнопки поместил в form
 
 import React, {useState, useContext} from "react"
-import {useNavigate} from "react-router-dom"
+// import {useNavigate} from "react-router-dom"
 import {CurrentUserContext} from "../../context/CurrentUserContext"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
 
-function Profile({handleUpdateUser}) {
-  const navigate = useNavigate()
+function Profile({handleUpdateUser, handleLogout}) {
+  // const navigate = useNavigate()
 
   const currentUser = useContext(CurrentUserContext)
 
@@ -34,8 +34,6 @@ function Profile({handleUpdateUser}) {
       setIsLoading(false)
     }
   }
-
-  const handleLogout = () => navigate("/")
 
   const toggleEditMode = () => setIsEditMode(!isEditMode)
 

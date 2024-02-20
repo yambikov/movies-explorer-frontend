@@ -1,8 +1,8 @@
 import "./App.css"
-import { CurrentUserContext } from "../../context/CurrentUserContext"
-import { Routes } from "react-router-dom"
+import {CurrentUserContext} from "../../context/CurrentUserContext"
+import {Routes} from "react-router-dom"
 import Header from "../Header/Header"
-import { Route } from "react-router"
+import {Route} from "react-router"
 import Footer from "../Footer/Footer"
 import Main from "../Main/Main"
 import Movies from "../Movies/Movies"
@@ -13,13 +13,14 @@ import PageNotFound from "../PageNotFound/PageNotFound"
 // import Preloader from '../Preloader/Preloader';
 import SavedMovies from "../SavedMovies/SavedMovies"
 import MainApi from "../../utils/MainApi"
-import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import {useNavigate} from "react-router-dom"
+import {useEffect, useState} from "react"
+import ProtectedRoute from "../ProtectedRoute"
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
-  // const [userName, setUserName] = useState("");
-  // const [email, setEmail] = useState("")
+  console.log(loggedIn)
+
   const [currentUser, setCurrentUser] = useState({})
 
   const navigate = useNavigate()
@@ -50,9 +51,9 @@ function App() {
   }, [loggedIn])
 
   function onRegister(name, email, password) {
-    MainApi.register(name, email, password)
+    MainApi.register({name, email, password})
       .then((res) => {
-        navigate("/signin", { replace: true })
+        navigate("/signin", {replace: true})
         // setIsInfoTooltipOpen(true)
         // setIsInfoTooltipSuccessed(true)
       })
@@ -64,14 +65,13 @@ function App() {
   }
 
   // Что происходит при логИне
-  function onLogin(password, email) {
-    MainApi.login(password, email)
+  function onLogin(email, password) {
+    MainApi.login({email, password})
       .then((res) => {
         if (res) {
           localStorage.setItem("jwt", res.token)
           setLoggedIn(true)
-          // setEmail(email)
-          navigate("/", { replace: true })
+          navigate("/", {replace: true})
         }
       })
       .catch((err) => console.log(err))
@@ -88,7 +88,7 @@ function App() {
             // setUserName(res.name);
             setCurrentUser(res)
             // setEmail(res.email)
-            navigate("/", { replace: true })
+            // navigate("/", {replace: true})
           }
         })
         .catch((err) => console.log(err))
@@ -96,16 +96,21 @@ function App() {
   }
 
   function handleUpdateUser(name, email) {
-   return MainApi.patchUserInfo({ name, email })
+    return MainApi.patchUserInfo({name, email})
       .then((res) => {
-        setCurrentUser(res);
-        return res;
+        setCurrentUser(res)
+        return res
       })
       .catch((err) => {
-        throw err;
-      });
+        throw err
+      })
   }
 
+  function handleLogout() {
+    setLoggedIn(false)
+    localStorage.clear()
+    navigate("/")
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -113,15 +118,7 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
         <Route path="/signin" element={<Login onLogin={onLogin} />} />
         <Route path="/signup" element={<Register onRegister={onRegister} />} />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <Header loggedIn={loggedIn} />
-              <Profile handleUpdateUser={handleUpdateUser} />
-            </>
-          }
-        />
+
         <Route
           path="/"
           element={
@@ -132,27 +129,47 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/movies"
-          element={
-            <>
-              <Header loggedIn={loggedIn} />
-              <Movies />
-              <Footer />
-            </>
-          }
-        />
+        <Route path="/movies" element={<ProtectedRoute loggedIn={loggedIn} />}>
+          <Route
+            path=""
+            element={
+              <>
+                <Header loggedIn={loggedIn} />
+                <Movies />
+                <Footer />
+              </>
+            }
+          />
+        </Route>
         <Route
           path="/saved-movies"
-          element={
-            <>
-              {/* <Preloader /> */}
-              <Header loggedIn={loggedIn} />
-              <SavedMovies />
-              <Footer />
-            </>
-          }
-        />
+          element={<ProtectedRoute loggedIn={loggedIn} />}
+        >
+          <Route
+            path=""
+            element={
+              <>
+                <Header loggedIn={loggedIn} />
+                <SavedMovies />
+                <Footer />
+              </>
+            }
+          />
+        </Route>
+        <Route path="/profile" element={<ProtectedRoute loggedIn={loggedIn} />}>
+          <Route
+            path=""
+            element={
+              <>
+                <Header loggedIn={loggedIn} />
+                <Profile
+                  handleLogout={handleLogout}
+                  handleUpdateUser={handleUpdateUser}
+                />
+              </>
+            }
+          />
+        </Route>
       </Routes>
     </CurrentUserContext.Provider>
   )
