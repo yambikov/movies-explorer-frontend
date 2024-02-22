@@ -51,14 +51,16 @@ function App() {
   }, [loggedIn])
 
   function onRegister(name, email, password) {
-    MainApi.register({name, email, password})
+    return MainApi.register({name, email, password})
       .then((res) => {
         navigate("/signin", {replace: true})
+        return res
         // setIsInfoTooltipOpen(true)
         // setIsInfoTooltipSuccessed(true)
       })
       .catch((err) => {
         console.log(err)
+        throw err
         // setIsInfoTooltipOpen(true)
         // setIsInfoTooltipSuccessed(false)
       })
@@ -66,7 +68,7 @@ function App() {
 
   // Что происходит при логИне
   function onLogin(email, password) {
-    MainApi.login({email, password})
+    return MainApi.login({email, password})
       .then((res) => {
         if (res) {
           localStorage.setItem("jwt", res.token)
@@ -74,7 +76,10 @@ function App() {
           navigate("/", {replace: true})
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        throw err
+      })
   }
 
   // Проверка валидности токена

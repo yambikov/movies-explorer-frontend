@@ -12,10 +12,6 @@ function MoviesCardList(props) {
       <div className="movies-card-list__wrapper">
         <div className="movies-card-list__container">
           <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
         </div>
         {activeLink && <button type="button" className="movies-card-list__button link">Ещё</button>}
       </div>

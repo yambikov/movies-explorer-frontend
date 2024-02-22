@@ -9,6 +9,7 @@ function useFormWithValidation() {
     name: "Имя должно содержать минимум 2 символа",
     email: "Неверный формат email",
     password: "Пароль должен быть не менее 8 символов",
+    search: "Нужно ввести ключевое слово"
   }
 
   const handleChange = (e) => {

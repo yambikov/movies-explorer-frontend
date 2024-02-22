@@ -1,71 +1,36 @@
-class Api {
-  constructor(options) {
-    this.baseUrl = options.baseUrl;
-    this.headers = options.headers;
-  }
+import React, { useState } from "react";
 
-  _makeRequest(url, method, data) {
-    const requestOptions = {
-      method,
-      headers: {
-        ...this.headers,
-        authorization: localStorage.getItem("jwt"),
-        'Content-Type': 'application/json'
-      },
-      ...(data ? { body: JSON.stringify(data) } : {})
-    };
+function SearchForm(props) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchError, setSearchError] = useState("");
 
-    return fetch(`${this.baseUrl}${url}`, requestOptions)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Проверяем, что введенный текст не пустой и не состоит только из пробелов
+    if (!searchTerm.trim()) {
+      setSearchError("Нужно ввести ключевое слово");
+    } else {
+      setSearchError(""); // Очищаем ошибку, если она была
+      props.onSubmit(searchTerm); // Здесь логика для отправки данных или выполнения поиска
+    }
+  };
 
-  getUserInfoApi() {
-    return this._makeRequest('users/me', 'GET');
-  }
-
-  patchUserInfo(data) {
-    return this._makeRequest('users/me', 'PATCH', data);
-  }
-
-  register(data) {
-    return this._makeRequest('signup', 'POST', data);
-  }
-
-  login(data) {
-    return this._makeRequest('signin', 'POST', data);
-  }
-
-  checkToken(data) {
-    // Обновите заголовки для этого запроса, так как токен передается вручную
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        ...this.headers,
-        'Authorization': `Bearer ${data}`,
-      },
-    };
-
-    return fetch(`${this.baseUrl}users/me`, requestOptions)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
-  }
+  return (
+    <section className="search-form">
+      <form className="search-form__form" onSubmit={handleSubmit}>
+        <input
+          name="search"
+          type="text"
+          placeholder="Фильм"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-form__input"
+        />
+        <button type="submit" className="search-form__submit-button link">Поиск</button>
+        {searchError && <span className="input-error">{searchError}</span>}
+      </form>
+    </section>
+  );
 }
 
-const apiConfig = new Api({
-  baseUrl: 'https://api.yambikov-diploma.nomoredomainsmonster.ru',
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  }
-});
-
-export default apiConfig;
+export default SearchForm;

@@ -1,16 +1,26 @@
 // import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom"
+import {Link} from "react-router-dom"
 import Logo from "../Logo/Logo"
 import Input from "../Input/Input"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
+import {useState} from "react"
 
-function Register({ onRegister }) {
-  const { formValue, handleChange, errors, isFormValid, errorMessages } =
+function Register({onRegister}) {
+  const {formValue, handleChange, errors, isFormValid, errorMessages} =
     useFormWithValidation()
 
-  function handleSubmit(e) {
+  const [serverError, setServerError] = useState(null)
+
+  async function handleSubmit(e) {
     e.preventDefault()
-    onRegister(formValue.name, formValue.email, formValue.password)
+    try {
+      await onRegister(formValue.name, formValue.email, formValue.password)
+    } catch (error) {
+      const errorMessage =
+        error.message || "При регистрации произошла ошибка."
+      setServerError(errorMessage)
+    }
+    // onRegister(formValue.name, formValue.email, formValue.password)
   }
 
   return (
@@ -66,10 +76,13 @@ function Register({ onRegister }) {
             errorMessage={errors.password && errorMessages.password}
             minLength={8}
           />
-
+          <span className="error-message error error__profile">
+            {serverError}
+          </span>
           <button
-            className={`auth__button ${isFormValid ? "auth__button_type_active" : ""
-              }`}
+            className={`auth__button ${
+              isFormValid ? "auth__button_type_active" : ""
+            }`}
             type="submit"
             disabled={!isFormValid}
           >

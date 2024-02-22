@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ id, name, type, placeholder, minLength, maxLength, autoComplete, value, onChange, isValid, errorMessage }) {
+function Input({ id, name, type, placeholder, minLength, maxLength, autoComplete, value, onChange, isValid, errorMessage, pattern }) {
   return (
     <>
       <label htmlFor={id} className="auth__label">{placeholder}</label>
@@ -14,7 +14,8 @@ function Input({ id, name, type, placeholder, minLength, maxLength, autoComplete
         autoComplete={autoComplete}
         value={value}
         onChange={onChange}
-        required
+        required={true}
+        pattern={pattern}
       />
       {!isValid ? <span className="input-error-name error">{errorMessage}</span> : <span className="input-error-name"></span>}
 
