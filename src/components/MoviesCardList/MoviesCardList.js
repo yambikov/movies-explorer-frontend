@@ -5,6 +5,7 @@ import {useLocation} from "react-router-dom"
 function MoviesCardList({movies}) {
   const location = useLocation()
   const activeLink = location.pathname === "/movies"
+  
 
   return (
     <section className="movies-card-list">

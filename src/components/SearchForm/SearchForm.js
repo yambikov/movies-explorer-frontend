@@ -20,7 +20,7 @@ function SearchForm({ setMovies }) {
     if (!searchTerm.trim()) {
       setSearchError("Нужно ввести ключевое слово");
     } else {
-      setSearchError("")
+      setSearchError(" ")
       getAndFilterMovies()
   }};
 
