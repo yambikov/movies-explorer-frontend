@@ -11,7 +11,7 @@ function MoviesCardList(props) {
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
         <div className="movies-card-list__container">
-          <MoviesCard />
+          {/* <MoviesCard /> */}
         </div>
         {activeLink && <button type="button" className="movies-card-list__button link">Ещё</button>}
       </div>

@@ -1,11 +1,13 @@
 import React, { useState } from "react"
 import togglerOn from "../../images/smalltumb_color.svg"
 import togglerOff from "../../images/smalltumb_black.svg"
+import moviesApi from "../../utils/MoviesApi"
 
 function SearchForm(props) {
   const [isToggled, setIsToggled] = useState(false)
   const [searchTerm, setSearchTerm] = useState("");
   const [searchError, setSearchError] = useState("");
+  const [movies, setMovies] = useState([]);
 
 
   const toggleButton = () => {
@@ -18,11 +20,30 @@ function SearchForm(props) {
     if (!searchTerm.trim()) {
       setSearchError("Нужно ввести ключевое слово");
     } else {
-      setSearchError("");
-      console.log('search submit');
-      // props.onSubmit(searchTerm); // Здесь логика для отправки данных или выполнения поиска
-    }
-  };
+      setSearchError("")
+      getAndFilterMovies()
+  }};
+
+  const getAndFilterMovies = () => {
+    moviesApi.getMovies()
+      .then((data) => {
+        const filteredMovies = data.filter(movie =>
+          movie.nameRU.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        
+        if (filteredMovies.length === 0) {
+          setSearchError("Ничего не найдено");
+        } else {
+          setMovies(filteredMovies);
+        }
+        
+        console.log(filteredMovies);
+      })
+      .catch((err) => {
+        console.error(err);
+        setSearchError("Произошла ошибка при поиске фильмов");
+      });
+  }  
 
   return (
     <section className="search-form">
