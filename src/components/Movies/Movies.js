@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { useState } from 'react';
-// import Preloader from '../Preloader/Preloader';
+import moviesApi from "../../utils/MoviesApi";
 
-function Movies(props) {
+function Movies() {
   const [movies, setMovies] = useState([]);
+
+  const getAndFilterMovies = (searchTerm) => {
+    moviesApi.getMovies()
+      .then((data) => {
+        const filteredMovies = data.filter(movie =>
+          movie.nameRU.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setMovies(filteredMovies);
+      })
+      .catch((err) => {
+        console.error("Ошибка при получении фильмов: ", err);
+        // Здесь можно добавить обработку ошибок, например, установить состояние ошибки
+      });
+  };
 
   return (
     <main>
-      <SearchForm setMovies={setMovies} />
+      <SearchForm onSearch={getAndFilterMovies} />
       <MoviesCardList movies={movies} />
     </main>
   );

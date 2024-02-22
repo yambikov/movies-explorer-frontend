@@ -1,12 +1,7 @@
-// import React, { useState } from 'react';
-import MoviesCard from "../MoviesCard/MoviesCard"
-import {useLocation} from "react-router-dom"
+import React from 'react';
+import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({movies}) {
-  const location = useLocation()
-  const activeLink = location.pathname === "/movies"
-  
-
+function MoviesCardList({ movies = [] }) {
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
@@ -22,14 +17,9 @@ function MoviesCardList({movies}) {
             />
           ))}
         </div>
-        {activeLink && (
-          <button type="button" className="movies-card-list__button link">
-            Ещё
-          </button>
-        )}
       </div>
     </section>
-  )
+  );
 }
 
-export default MoviesCardList
+export default MoviesCardList;
