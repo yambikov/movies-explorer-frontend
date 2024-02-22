@@ -17,7 +17,6 @@ function MoviesCard(props) {
   }${savedMovieLink ? " movie-card__saved-movie-delete" : ""}`
 
   function formatDuration(minutesDuration) {
-
     const hours = Math.floor(minutesDuration / 60)
     const minutes = Math.floor(minutesDuration % 60)
 
@@ -29,16 +28,23 @@ function MoviesCard(props) {
 
   const formattedDuration = formatDuration(props.duration)
 
+ 
+    const handleCardClick = () => {
+      window.open(props.trailerLink, '_blank');
+    };
+
+
   return (
     <div
-      className={`movie-card movies-card-list__card
-    ${savedMovieLink ? " movie-card__saved-movie-card" : ""}`}
+      className={`movie-card movies-card-list__card ${
+        savedMovieLink ? " movie-card__saved-movie-card" : ""
+      }`}
     >
       {/* <div
         // onClick={handleClick}
         className="movie-card__image">
       </div> */}
-      <img className="movie-card__image" alt={props.nameRU} src={props.image} />
+      <img className="movie-card__image" alt={props.nameRU} src={props.image} onClick={handleCardClick} />
 
       <div className="movie-card__container">
         <div className="movie-card__info">
