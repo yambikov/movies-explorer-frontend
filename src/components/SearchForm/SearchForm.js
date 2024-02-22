@@ -3,11 +3,11 @@ import togglerOn from "../../images/smalltumb_color.svg"
 import togglerOff from "../../images/smalltumb_black.svg"
 import moviesApi from "../../utils/MoviesApi"
 
-function SearchForm(props) {
+function SearchForm({ setMovies }) {
   const [isToggled, setIsToggled] = useState(false)
   const [searchTerm, setSearchTerm] = useState("");
   const [searchError, setSearchError] = useState("");
-  const [movies, setMovies] = useState([]);
+  // const [movies, setMovies] = useState([]);
 
 
   const toggleButton = () => {

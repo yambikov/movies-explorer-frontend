@@ -26,10 +26,10 @@
 .movie-card__image {
   width: 100%;
   height: 203px;
-  background-position: center;
-  background-size: cover;
+  /* background-position: center;
+  background-size: cover; */
 
-  background-image: url(https://allbestmovies.ru/uploads/posts/2019-11/1574668630_7fa899cc59a6669cb82376f6313c69e8_ce_1484x925x0x655_cropped_960x600.jpg);
+  /* background-image: url(https://allbestmovies.ru/uploads/posts/2019-11/1574668630_7fa899cc59a6669cb82376f6313c69e8_ce_1484x925x0x655_cropped_960x600.jpg); */
 }
 
 @media screen and (min-width: 480px) and (max-width: 850px) {
