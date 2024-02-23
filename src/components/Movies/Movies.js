@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import SearchForm from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import moviesApi from "../../utils/MoviesApi"
@@ -8,14 +8,27 @@ function Movies() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [visibleMovies, setVisibleMovies] = useState([])
+  const [savedSearchTerm, setSavedSearchTerm] = useState("")
 
   useEffect(() => {
+
+    const storedSearchTerm = localStorage.getItem('searchTerm');
+    console.log(`storedSearchTerm: ${storedSearchTerm}`);
+    const storedMovies = JSON.parse(localStorage.getItem('movies'));
+
+    if (storedMovies && storedSearchTerm) {
+      setMovies(storedMovies);
+      setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible);
+      setSavedSearchTerm(storedSearchTerm);
+      // Здесь может быть код для установки значения поискового запроса, если он используется в компоненте SearchForm
+    }
+
     handleResize()
     window.addEventListener("resize", handleResize)
     return () => {
       window.removeEventListener("resize", handleResize)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleResize = () => {
@@ -36,7 +49,9 @@ function Movies() {
         )
         setMovies(filteredMovies)
         setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
-        
+        localStorage.setItem('searchTerm', searchTerm);
+        localStorage.setItem('movies', JSON.stringify(filteredMovies));
+        // + добавить значение короткометражек
       })
       .catch((err) => {
         setError(true)
@@ -48,16 +63,16 @@ function Movies() {
 
   const calculateVisibleAddition = (width) => {
     if (width >= 1280) {
-      return {visible: 12, add: 3}
+      return { visible: 12, add: 3 }
     } else if (width >= 768) {
-      return {visible: 8, add: 2}
+      return { visible: 8, add: 2 }
     } else if (width >= 320) {
-      return {visible: 5, add: 2}
+      return { visible: 5, add: 2 }
     }
   }
 
   const loadMore = () => {
-    const {add} = calculateVisibleAddition(window.innerWidth)
+    const { add } = calculateVisibleAddition(window.innerWidth)
     setVisibleMovies((prev) => Math.min(prev + add, movies.length))
   }
 
@@ -65,9 +80,12 @@ function Movies() {
   if (error) return <div>Во время запроса произошла ошибка...</div>
   // if (movies.length === 0) return <div>Ничего не найдено</div>;
 
+  console.log(`storedSearchTerm2: ${savedSearchTerm}`);
+
   return (
     <main>
-      <SearchForm onSearch={getAndFilterMovies} />
+      <SearchForm
+        onSearch={getAndFilterMovies} />
       <MoviesCardList
         movies={movies.slice(0, visibleMovies)}
         loadMore={loadMore}

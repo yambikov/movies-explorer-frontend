@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
-function SearchForm({ onSearch }) {
+function SearchForm({ onSearch}) {
+
+
   const [searchTerm, setSearchTerm] = useState("");
   const [inputError, setInputError] = useState("");
+  console.log(`savedSearchTerm3: ${searchTerm}`);
+
+  useEffect(() => {
+    setSearchTerm(localStorage.getItem('searchTerm'))
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,6 +19,7 @@ function SearchForm({ onSearch }) {
     } else {
       setInputError("");
       onSearch(searchTerm);
+
     }
   };
 
@@ -26,7 +35,7 @@ function SearchForm({ onSearch }) {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-form__input"
             autoComplete="off"
-            // aria-label="Поиск фильмов"
+          // aria-label="Поиск фильмов"
           />
           <button type="submit" className="search-form__submit-button link"></button>
           {inputError && <span className="input-error-name error">{inputError}</span>}
