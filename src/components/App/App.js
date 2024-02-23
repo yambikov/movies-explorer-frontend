@@ -19,16 +19,23 @@ import ProtectedRoute from "../ProtectedRoute"
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
-  console.log(loggedIn)
-
   const [currentUser, setCurrentUser] = useState({})
-
+  const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
 
+  // useEffect(() => {
+  //   handleTokenCheck()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
+
   useEffect(() => {
+    setIsLoading(true); // Устанавливаем перед началом операции
     handleTokenCheck()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+      .finally(() => {
+        setIsLoading(false); // Очистка после завершения операции
+      });
+  }, []);
+  
 
   useEffect(() => {
     if (loggedIn) {
@@ -84,21 +91,39 @@ function App() {
 
   // Проверка валидности токена
   function handleTokenCheck() {
-    if (localStorage.getItem("jwt")) {
-      const token = localStorage.getItem("jwt")
-      MainApi.checkToken(token)
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      return MainApi.checkToken(token)
         .then((res) => {
           if (res) {
-            setLoggedIn(true)
-            // setUserName(res.name);
-            setCurrentUser(res)
-            // setEmail(res.email)
-            // navigate("/", {replace: true})
+            setLoggedIn(true);
+            setCurrentUser(res);
           }
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
+    } else {
+      return Promise.resolve(); // Добавлено для явного возвращения промиса
     }
   }
+
+  /*
+    function handleTokenCheck() {
+    if (localStorage.getItem("jwt")) {
+      const token = localStorage.getItem("jwt");
+      return MainApi.checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setCurrentUser(res);
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      // Возвращаем промис, который немедленно разрешается, если токен отсутствует
+      return Promise.resolve();
+    }
+  }
+  */
 
   function handleUpdateUser(name, email) {
     return MainApi.patchUserInfo({name, email})
@@ -134,7 +159,10 @@ function App() {
             </>
           }
         />
-        <Route path="/movies" element={<ProtectedRoute loggedIn={loggedIn} />}>
+        <Route
+          path="/movies"
+          element={<ProtectedRoute loggedIn={loggedIn} isLoading={isLoading} />}
+        >
           <Route
             path=""
             element={
@@ -148,7 +176,7 @@ function App() {
         </Route>
         <Route
           path="/saved-movies"
-          element={<ProtectedRoute loggedIn={loggedIn} />}
+          element={<ProtectedRoute loggedIn={loggedIn} isLoading={isLoading} />}
         >
           <Route
             path=""
@@ -161,7 +189,10 @@ function App() {
             }
           />
         </Route>
-        <Route path="/profile" element={<ProtectedRoute loggedIn={loggedIn} />}>
+        <Route
+          path="/profile"
+          element={<ProtectedRoute loggedIn={loggedIn} isLoading={isLoading} />}
+        >
           <Route
             path=""
             element={

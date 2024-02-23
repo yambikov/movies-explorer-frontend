@@ -1,7 +1,8 @@
 import React from 'react';
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies = [] }) {
+function MoviesCardList({ movies = [], visibleMovies, loadMore, moviesLength }) {
+
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
@@ -17,6 +18,9 @@ function MoviesCardList({ movies = [] }) {
             />
           ))}
         </div>
+
+        {visibleMovies < moviesLength && <button type="button" className="movies-card-list__button link" onClick={loadMore}>Ещё</button>}
+
       </div>
     </section>
   );
