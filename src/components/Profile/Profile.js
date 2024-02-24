@@ -18,6 +18,11 @@ function Profile({ handleUpdateUser, handleLogout }) {
   const [serverError, setServerError] = useState(null)
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
 
+  const isDataUnchanged = 
+  (formValue.name === undefined || formValue.name === currentUser.name) &&
+  (formValue.email === undefined || formValue.email === currentUser.email);
+
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -50,13 +55,12 @@ function Profile({ handleUpdateUser, handleLogout }) {
   const saveButton = (
     <button
       type="submit"
-      className={`button button__submit ${isFormValid ? "" : "button__submit_disabled"
-        }`}
-      disabled={!isFormValid}
+      className={`button button__submit ${isFormValid && !isDataUnchanged ? "" : "button__submit_disabled"}`}
+      disabled={!isFormValid || isDataUnchanged}
     >
       {isLoading ? <div className="button__preloader"></div> : "Сохранить"}
     </button>
-  )
+  );
 
   const editAndLogoutButtons = (
     <>
@@ -106,8 +110,8 @@ function Profile({ handleUpdateUser, handleLogout }) {
                 }
                 onChange={handleChange}
                 errorMessage={errors.name && errorMessages.name}
-              // pattern="[a-zA-Zа-яА-Я\s-]*"
-              // minLength={2}
+              pattern="[a-zA-Zа-яА-Я\s-]*"
+              minLength={2}
               // maxLength={30}
               />
             </div>
