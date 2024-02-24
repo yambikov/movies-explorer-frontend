@@ -7,7 +7,7 @@ function MoviesCardList({
   visibleMovies,
   loadMore,
   moviesLength,
-  loading,
+  loading
 }) {
   // if (!loading) return <Preloader />
 

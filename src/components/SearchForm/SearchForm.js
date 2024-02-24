@@ -1,7 +1,7 @@
-import React, {useState} from "react"
-import {useEffect} from "react"
+import React, { useState } from "react"
+import { useEffect } from "react"
 
-function SearchForm({onSearch}) {
+function SearchForm({ onSearch, searchError }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [inputError, setInputError] = useState("")
 
@@ -31,15 +31,17 @@ function SearchForm({onSearch}) {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-form__input"
             autoComplete="off"
-            // aria-label="Поиск фильмов"
+          // aria-label="Поиск фильмов"
           />
           <button
             type="submit"
             className="search-form__submit-button link"
           ></button>
-          {inputError && (
+          {searchError ? (
+            <div className="error">Во время запроса произошла ошибка...</div>
+          ) : inputError ? (
             <span className="input-error-name error">{inputError}</span>
-          )}
+          ) : null}
         </form>
       </div>
     </section>

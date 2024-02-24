@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import SearchForm from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import moviesApi from "../../utils/MoviesApi"
@@ -6,7 +6,7 @@ import moviesApi from "../../utils/MoviesApi"
 
 function Movies() {
   const [movies, setMovies] = useState([])
-  const [error, setError] = useState(false)
+  const [searchError, setSearchError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [visibleMovies, setVisibleMovies] = useState([])
   // eslint-disable-next-line no-unused-vars
@@ -39,7 +39,7 @@ function Movies() {
 
   const getAndFilterMovies = (searchTerm) => {
     setLoading(true)
-    setError(false)
+    setSearchError(false)
     moviesApi
       .getMovies()
       .then((data) => {
@@ -57,7 +57,7 @@ function Movies() {
         // + добавить значение короткометражек
       })
       .catch((err) => {
-        setError(true)
+        setSearchError(true)
       })
       .finally(() => {
         setLoading(false)
@@ -66,32 +66,35 @@ function Movies() {
 
   const calculateVisibleAddition = (width) => {
     if (width >= 1280) {
-      return {visible: 12, add: 3}
+      return { visible: 12, add: 3 }
     } else if (width >= 768) {
-      return {visible: 8, add: 2}
+      return { visible: 8, add: 2 }
     } else if (width >= 320) {
-      return {visible: 5, add: 2}
+      return { visible: 5, add: 2 }
     }
   }
 
   const loadMore = () => {
-    const {add} = calculateVisibleAddition(window.innerWidth)
+    const { add } = calculateVisibleAddition(window.innerWidth)
     setVisibleMovies((prev) => Math.min(prev + add, movies.length))
   }
 
   // if (loading) return <div>Загрузка...</div>
   // if (loading) return <Preloader />
-  if (error) return <div>Во время запроса произошла ошибка...</div>
+  // if (searchError) return <div>Во время запроса произошла ошибка...</div>
 
   return (
     <main>
-      <SearchForm onSearch={getAndFilterMovies} />
+      <SearchForm
+        onSearch={getAndFilterMovies}
+        searchError={searchError} />
       <MoviesCardList
         movies={movies.slice(0, visibleMovies)}
         loadMore={loadMore}
         visibleMovies={visibleMovies}
         moviesLength={movies.length}
         loading={loading}
+
       />
     </main>
   )
