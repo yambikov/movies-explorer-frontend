@@ -1,48 +1,57 @@
 // Поправить верстку после того, как кнопки поместил в form
 
-import React, {useState, useContext} from "react"
+import React, { useState, useContext } from "react"
 // import {useNavigate} from "react-router-dom"
-import {CurrentUserContext} from "../../context/CurrentUserContext"
+import { CurrentUserContext } from "../../context/CurrentUserContext"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
 
-function Profile({handleUpdateUser, handleLogout}) {
+function Profile({ handleUpdateUser, handleLogout }) {
   // const navigate = useNavigate()
 
   const currentUser = useContext(CurrentUserContext)
 
-  const {formValue, handleChange, errors, isFormValid, errorMessages} =
+  const { formValue, handleChange, errors, isFormValid, errorMessages } =
     useFormWithValidation()
 
   const [isEditMode, setIsEditMode] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [serverError, setServerError] = useState(null)
+  const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
+
 
   async function handleSubmit(e) {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
+    setIsUpdateSuccessful(false); // Сбросить состояние успешного обновления при новой отправке
     try {
       await handleUpdateUser(
         formValue.name || currentUser.name,
         formValue.email || currentUser.email
-      )
-      setIsEditMode(!isEditMode)
+      );
+      setIsEditMode(!isEditMode);
+      setIsUpdateSuccessful(true); // Установить состояние успешного обновления после успешного выполнения
     } catch (error) {
       const errorMessage =
-        error.message || "При обновлении профиля произошла ошибка."
-      setServerError(errorMessage)
+        error.message || "При обновлении профиля произошла ошибка.";
+      setServerError(errorMessage);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
-  const toggleEditMode = () => setIsEditMode(!isEditMode)
+
+  function toggleEditMode() {
+    setIsEditMode(!isEditMode)
+    setIsUpdateSuccessful(false)
+  }
+
+
 
   const saveButton = (
     <button
       type="submit"
-      className={`button button__submit ${
-        isFormValid ? "" : "button__submit_disabled"
-      }`}
+      className={`button button__submit ${isFormValid ? "" : "button__submit_disabled"
+        }`}
       disabled={!isFormValid}
     >
       {isLoading ? <div className="button__preloader"></div> : "Сохранить"}
@@ -97,9 +106,9 @@ function Profile({handleUpdateUser, handleLogout}) {
                 }
                 onChange={handleChange}
                 errorMessage={errors.name && errorMessages.name}
-                // pattern="[a-zA-Zа-яА-Я\s-]*"
-                // minLength={2}
-                // maxLength={30}
+              // pattern="[a-zA-Zа-яА-Я\s-]*"
+              // minLength={2}
+              // maxLength={30}
               />
             </div>
             <div className="profile__divider" />
@@ -139,6 +148,11 @@ function Profile({handleUpdateUser, handleLogout}) {
             <span className="error-message error error__profile">
               {serverError}
             </span>
+            {isUpdateSuccessful && (
+              <span className="error-message success success__profile">
+                Профиль успешно изменен
+              </span>
+            )}
             {isEditMode ? saveButton : editAndLogoutButtons}
           </div>
         </form>

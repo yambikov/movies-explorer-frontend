@@ -23,11 +23,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   handleTokenCheck()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-
   useEffect(() => {
     setIsLoading(true); // Устанавливаем перед началом операции
     handleTokenCheck()
@@ -60,8 +55,7 @@ function App() {
   function onRegister(name, email, password) {
     return MainApi.register({name, email, password})
       .then((res) => {
-        navigate("/signin", {replace: true})
-        return res
+        return onLogin(email, password);
         // setIsInfoTooltipOpen(true)
         // setIsInfoTooltipSuccessed(true)
       })
@@ -80,7 +74,7 @@ function App() {
         if (res) {
           localStorage.setItem("jwt", res.token)
           setLoggedIn(true)
-          navigate("/", {replace: true})
+          navigate("/movies", {replace: true})
         }
       })
       .catch((err) => {
