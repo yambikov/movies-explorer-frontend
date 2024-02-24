@@ -1,17 +1,15 @@
-import React from "react"
-import MoviesCard from "../MoviesCard/MoviesCard"
-import Preloader from "../Preloader/Preloader"
+import React from "react";
+import MoviesCard from "../MoviesCard/MoviesCard";
+import Preloader from "../Preloader/Preloader";
 
 function MoviesCardList({
   movies = [],
   visibleMovies,
   loadMore,
   moviesLength,
-  loading
+  loading,
+  noResultsFound // Добавлена запятая
 }) {
-
-  console.log(`movies in MoviesCardList: ${movies}`);
-
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
@@ -24,6 +22,8 @@ function MoviesCardList({
         >
           {loading ? (
             <Preloader />
+          ) : noResultsFound ? ( // Использование тернарного оператора для условного рендеринга
+            <p>Ничего не найдено</p> // Использование <p> для текста
           ) : (
             movies.map((movie) => (
               <MoviesCard
@@ -37,8 +37,7 @@ function MoviesCardList({
             ))
           )}
         </div>
-
-        {visibleMovies < moviesLength && (
+        {visibleMovies < moviesLength && !noResultsFound && ( // Условие для отображения кнопки "Ещё", если есть результаты
           <button
             type="button"
             className="movies-card-list__button link"
@@ -49,7 +48,7 @@ function MoviesCardList({
         )}
       </div>
     </section>
-  )
+  );
 }
 
-export default MoviesCardList
+export default MoviesCardList;

@@ -11,6 +11,7 @@ function Movies() {
   const [loading, setLoading] = useState(false)
   const [visibleMovies, setVisibleMovies] = useState([])
   const [isShort, setIsShort] = useState(JSON.parse(localStorage.getItem("isShort")) || false);
+  const [noResultsFound, setNoResultsFound] = useState(false);
 
   const toggleShortFilter = () => {
     setIsShort(!isShort);
@@ -45,6 +46,7 @@ function Movies() {
   const filterMovies = (movies, isShort) => {
     const filtered = movies.filter(movie => isShort ? movie.duration <= 40 : true);
     setFilteredMovies(filtered);
+    setNoResultsFound(filtered.length === 0);
     setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
   }
 
@@ -94,6 +96,7 @@ function Movies() {
         visibleMovies={visibleMovies}
         moviesLength={filteredMovies.length}
         loading={loading}
+        noResultsFound={noResultsFound}
       />
     </main>
   )
