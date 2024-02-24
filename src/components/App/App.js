@@ -15,7 +15,7 @@ import SavedMovies from "../SavedMovies/SavedMovies"
 import MainApi from "../../utils/MainApi"
 import {useNavigate} from "react-router-dom"
 import {useEffect, useState} from "react"
-import ProtectedRoute from "../ProtectedRoute"
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)

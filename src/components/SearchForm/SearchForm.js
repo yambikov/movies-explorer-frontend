@@ -1,9 +1,12 @@
 import React, { useState } from "react"
 import { useEffect } from "react"
+import togglerOn from '../../images/smalltumb_color.svg';
+import togglerOff from '../../images/smalltumb_black.svg';
 
 function SearchForm({ onSearch, searchError }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [inputError, setInputError] = useState("")
+  const [isShort, setIsShort] = useState(false);
 
   useEffect(() => {
     setSearchTerm(localStorage.getItem("searchTerm"))
@@ -18,6 +21,10 @@ function SearchForm({ onSearch, searchError }) {
       onSearch(searchTerm)
     }
   }
+
+  const shortFilmToggler = () => {
+    setIsShort(!isShort);
+  };
 
   return (
     <section className="search-form">
@@ -43,6 +50,12 @@ function SearchForm({ onSearch, searchError }) {
             <span className="input-error-name error">{inputError}</span>
           ) : null}
         </form>
+        <div className="search-form__short-films">
+          <button className="search-form__toggle-button" onClick={shortFilmToggler}>
+            <img src={isShort ? togglerOn : togglerOff} alt="Toggle" />
+          </button>
+          <p className="search-form__short-films-text">Короткометражки</p>
+        </div>
       </div>
     </section>
   )

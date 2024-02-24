@@ -9,12 +9,10 @@ function MoviesCardList({
   moviesLength,
   loading
 }) {
-  // if (!loading) return <Preloader />
 
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
-        {/* <div className="movies-card-list__container"> */}
         <div
           className={
             loading

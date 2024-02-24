@@ -11,6 +11,7 @@ function Movies() {
   const [visibleMovies, setVisibleMovies] = useState([])
   // eslint-disable-next-line no-unused-vars
   const [savedSearchTerm, setSavedSearchTerm] = useState("")
+  
 
   useEffect(() => {
     const storedSearchTerm = localStorage.getItem("searchTerm")
@@ -69,7 +70,8 @@ function Movies() {
       return { visible: 12, add: 3 }
     } else if (width >= 768) {
       return { visible: 8, add: 2 }
-    } else if (width >= 320) {
+    // } else if (width >= 320) {
+    } else {
       return { visible: 5, add: 2 }
     }
   }
