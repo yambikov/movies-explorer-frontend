@@ -1,6 +1,6 @@
 // Поправить верстку после того, как кнопки поместил в form
 
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react";
 // import {useNavigate} from "react-router-dom"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
@@ -18,9 +18,19 @@ function Profile({ handleUpdateUser, handleLogout }) {
   const [serverError, setServerError] = useState(null)
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
 
-  const isDataUnchanged = 
-  (formValue.name === undefined || formValue.name === currentUser.name) &&
-  (formValue.email === undefined || formValue.email === currentUser.email);
+  useEffect(() => {
+    let timer;
+    if (isUpdateSuccessful) {
+      timer = setTimeout(() => {
+        setIsUpdateSuccessful(false);
+      }, 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [isUpdateSuccessful]);
+
+  const isDataUnchanged =
+    (formValue.name === undefined || formValue.name === currentUser.name) &&
+    (formValue.email === undefined || formValue.email === currentUser.email);
 
 
 
@@ -110,8 +120,8 @@ function Profile({ handleUpdateUser, handleLogout }) {
                 }
                 onChange={handleChange}
                 errorMessage={errors.name && errorMessages.name}
-              pattern="[a-zA-Zа-яА-Я\s-]*"
-              minLength={2}
+                pattern="[a-zA-Zа-яА-Я\s-]*"
+                minLength={2}
               // maxLength={30}
               />
             </div>
@@ -152,11 +162,18 @@ function Profile({ handleUpdateUser, handleLogout }) {
             <span className="error-message error error__profile">
               {serverError}
             </span>
-            {isUpdateSuccessful && (
-              <span className="error-message success success__profile">
+            {/* {isUpdateSuccessful && (
+              <span className={`error-message success success__profile ${!isUpdateSuccessful ? "hide" : ""}`}>
                 Профиль успешно изменен
               </span>
-            )}
+            )} */}
+
+            <span className={`error-message success success__profile ${!isUpdateSuccessful ? "hide" : ""}`}>
+              {isUpdateSuccessful ? "Профиль успешно изменен" : ""}
+            </span>
+
+
+
             {isEditMode ? saveButton : editAndLogoutButtons}
           </div>
         </form>

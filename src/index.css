@@ -31,9 +31,18 @@ body {
   font-size: 11px;
   text-align: center;
   color: #3DDC84;
+
+  opacity: 1;
+  transition: opacity 0.2s ease-in;
 }
 
-.esuccess {
+
+.success__profile.hide {
+  opacity: 0;
+}
+
+
+.success {
   line-height: 15px;
   display: block;
   height: 13px;
