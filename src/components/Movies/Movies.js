@@ -1,68 +1,70 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react"
 import SearchForm from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import moviesApi from "../../utils/MoviesApi"
 
-
 function Movies() {
-  const [movies, setMovies] = useState([])
+  const [allMovies, setAllMovies] = useState([]) // Исходный список всех фильмов
+  const [filteredMovies, setFilteredMovies] = useState([]) // Отфильтрованные фильмы
   const [searchError, setSearchError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [visibleMovies, setVisibleMovies] = useState([])
-  // eslint-disable-next-line no-unused-vars
-  const [savedSearchTerm, setSavedSearchTerm] = useState("")
-  
+  const [isShort, setIsShort] = useState(JSON.parse(localStorage.getItem("isShort")) || false);
+
+  const toggleShortFilter = () => {
+    setIsShort(!isShort);
+    localStorage.setItem("isShort", !isShort); // Обновляем состояние в localStorage при каждом изменении
+  };
 
   useEffect(() => {
     const storedSearchTerm = localStorage.getItem("searchTerm")
     const storedMovies = JSON.parse(localStorage.getItem("movies"))
 
     if (storedMovies && storedSearchTerm) {
-      setMovies(storedMovies)
+      setAllMovies(storedMovies)
+      filterMovies(storedMovies, isShort) // Используем isShort напрямую
       setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
-      setSavedSearchTerm(storedSearchTerm)
     }
 
-    handleResize()
+    const handleResize = () => {
+      clearTimeout(window.resizeDebounce)
+      window.resizeDebounce = setTimeout(() => {
+        setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
+      }, 100)
+    }
+
     window.addEventListener("resize", handleResize)
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    return () => window.removeEventListener("resize", handleResize)
+  }, [isShort]) // Добавляем isShort в список зависимостей
 
-  const handleResize = () => {
-    clearTimeout(window.resizeDebounce)
-    window.resizeDebounce = setTimeout(() => {
-      setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
-    }, 100)
+  useEffect(() => {
+    filterMovies(allMovies, isShort) // Перефильтровываем фильмы при изменении isShort
+  }, [allMovies, isShort])
+
+  const filterMovies = (movies, isShort) => {
+    const filtered = movies.filter(movie => isShort ? movie.duration <= 40 : true);
+    setFilteredMovies(filtered);
+    setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
   }
 
   const getAndFilterMovies = (searchTerm) => {
     setLoading(true)
     setSearchError(false)
-    moviesApi
-      .getMovies()
-      .then((data) => {
-        const filteredMovies = data.filter(
-          (movie) =>
-            (movie.nameRU &&
-              movie.nameRU.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (movie.nameEN &&
-              movie.nameEN.toLowerCase().includes(searchTerm.toLowerCase()))
-        )
-        setMovies(filteredMovies)
-        setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
-        localStorage.setItem("searchTerm", searchTerm)
-        localStorage.setItem("movies", JSON.stringify(filteredMovies))
-        // + добавить значение короткометражек
-      })
-      .catch((err) => {
-        setSearchError(true)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    moviesApi.getMovies().then((data) => {
+      const filteredMovies = data.filter((movie) =>
+        movie.nameRU?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        movie.nameEN?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      setAllMovies(filteredMovies)
+      filterMovies(filteredMovies, isShort)
+      localStorage.setItem("searchTerm", searchTerm)
+      localStorage.setItem("movies", JSON.stringify(filteredMovies))
+    }).catch((err) => {
+      setSearchError(true)
+    }).finally(() => {
+      setLoading(false)
+    })
   }
 
   const calculateVisibleAddition = (width) => {
@@ -70,7 +72,6 @@ function Movies() {
       return { visible: 12, add: 3 }
     } else if (width >= 768) {
       return { visible: 8, add: 2 }
-    // } else if (width >= 320) {
     } else {
       return { visible: 5, add: 2 }
     }
@@ -78,25 +79,21 @@ function Movies() {
 
   const loadMore = () => {
     const { add } = calculateVisibleAddition(window.innerWidth)
-    setVisibleMovies((prev) => Math.min(prev + add, movies.length))
+    setVisibleMovies((prev) => Math.min(prev + add, filteredMovies.length))
   }
-
-  // if (loading) return <div>Загрузка...</div>
-  // if (loading) return <Preloader />
-  // if (searchError) return <div>Во время запроса произошла ошибка...</div>
 
   return (
     <main>
       <SearchForm
         onSearch={getAndFilterMovies}
-        searchError={searchError} />
+        searchError={searchError}
+        toggleShortFilter={toggleShortFilter} />
       <MoviesCardList
-        movies={movies.slice(0, visibleMovies)}
+        movies={filteredMovies.slice(0, visibleMovies)}
         loadMore={loadMore}
         visibleMovies={visibleMovies}
-        moviesLength={movies.length}
+        moviesLength={filteredMovies.length}
         loading={loading}
-
       />
     </main>
   )

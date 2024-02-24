@@ -10,6 +10,8 @@ function MoviesCardList({
   loading
 }) {
 
+  console.log(`movies in MoviesCardList: ${movies}`);
+
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">

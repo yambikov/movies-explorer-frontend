@@ -3,27 +3,39 @@ import { useEffect } from "react"
 import togglerOn from '../../images/smalltumb_color.svg';
 import togglerOff from '../../images/smalltumb_black.svg';
 
-function SearchForm({ onSearch, searchError }) {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [inputError, setInputError] = useState("")
-  const [isShort, setIsShort] = useState(false);
+function SearchForm({ onSearch, searchError, toggleShortFilter }) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [inputError, setInputError] = useState("");
+  const [isShort, setIsShort] = useState(false); // Исходное состояние false
 
   useEffect(() => {
-    setSearchTerm(localStorage.getItem("searchTerm"))
-  }, [])
+    // Чтение сохраненных значений из localStorage
+    const storedSearchTerm = localStorage.getItem("searchTerm");
+    const storedIsShort = localStorage.getItem("isShort") === "true"; // Преобразование строки в булево значение
+    console.log(`before setIsShort in useEffect in SearchForm isShort: ${storedIsShort}`);
+
+    if (storedSearchTerm) {
+      setSearchTerm(storedSearchTerm);
+    }
+    setIsShort(storedIsShort); // Установка значения чекбокса из локального хранилища
+  }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!searchTerm.trim()) {
-      setInputError("Нужно ввести ключевое слово")
+      setInputError("Нужно ввести ключевое слово");
     } else {
-      setInputError("")
-      onSearch(searchTerm)
+      setInputError("");
+      onSearch(searchTerm);
     }
-  }
+  };
 
   const shortFilmToggler = () => {
-    setIsShort(!isShort);
+    const newIsShort = !isShort;
+    setIsShort(newIsShort);
+    localStorage.setItem("isShort", newIsShort); // Сохранение состояния чекбокса в localStorage
+    toggleShortFilter(); // Вызов функции для обновления фильтра в родительском компоненте
+    console.log(`after toggle shortFilmToggler in search form isShort: ${newIsShort}`);
   };
 
   return (

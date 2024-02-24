@@ -20,7 +20,7 @@ function MoviesCard(props) {
     const hours = Math.floor(minutesDuration / 60)
     const minutes = Math.floor(minutesDuration % 60)
 
-    const hoursString = hours > 0 ? hours + "ч " : "0 ч"
+    const hoursString = hours > 0 ? hours + "ч " : ""
     const minutesString = minutes > 0 ? minutes + "м" : "00 м"
 
     return hoursString + minutesString
