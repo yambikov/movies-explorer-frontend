@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, {useState} from "react"
+import {useEffect} from "react"
 
-function SearchForm({ onSearch}) {
-
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [inputError, setInputError] = useState("");
-  console.log(`savedSearchTerm3: ${searchTerm}`);
+function SearchForm({onSearch}) {
+  const [searchTerm, setSearchTerm] = useState("")
+  const [inputError, setInputError] = useState("")
 
   useEffect(() => {
-    setSearchTerm(localStorage.getItem('searchTerm'))
+    setSearchTerm(localStorage.getItem("searchTerm"))
   }, [])
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!searchTerm.trim()) {
-      setInputError("Нужно ввести ключевое слово");
+      setInputError("Нужно ввести ключевое слово")
     } else {
-      setInputError("");
-      onSearch(searchTerm);
-
+      setInputError("")
+      onSearch(searchTerm)
     }
-  };
+  }
 
   return (
     <section className="search-form">
@@ -35,14 +31,19 @@ function SearchForm({ onSearch}) {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-form__input"
             autoComplete="off"
-          // aria-label="Поиск фильмов"
+            // aria-label="Поиск фильмов"
           />
-          <button type="submit" className="search-form__submit-button link"></button>
-          {inputError && <span className="input-error-name error">{inputError}</span>}
+          <button
+            type="submit"
+            className="search-form__submit-button link"
+          ></button>
+          {inputError && (
+            <span className="input-error-name error">{inputError}</span>
+          )}
         </form>
       </div>
     </section>
-  );
+  )
 }
 
-export default SearchForm;
+export default SearchForm

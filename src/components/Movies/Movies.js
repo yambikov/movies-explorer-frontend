@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react"
+import React, {useState, useEffect} from "react"
 import SearchForm from "../SearchForm/SearchForm"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
 import moviesApi from "../../utils/MoviesApi"
+
 
 function Movies() {
   const [movies, setMovies] = useState([])
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [visibleMovies, setVisibleMovies] = useState([])
+  // eslint-disable-next-line no-unused-vars
   const [savedSearchTerm, setSavedSearchTerm] = useState("")
 
   useEffect(() => {
-
-    const storedSearchTerm = localStorage.getItem('searchTerm');
-    console.log(`storedSearchTerm: ${storedSearchTerm}`);
-    const storedMovies = JSON.parse(localStorage.getItem('movies'));
+    const storedSearchTerm = localStorage.getItem("searchTerm")
+    const storedMovies = JSON.parse(localStorage.getItem("movies"))
 
     if (storedMovies && storedSearchTerm) {
-      setMovies(storedMovies);
-      setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible);
-      setSavedSearchTerm(storedSearchTerm);
-      // Здесь может быть код для установки значения поискового запроса, если он используется в компоненте SearchForm
+      setMovies(storedMovies)
+      setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
+      setSavedSearchTerm(storedSearchTerm)
     }
 
     handleResize()
@@ -44,13 +43,17 @@ function Movies() {
     moviesApi
       .getMovies()
       .then((data) => {
-        const filteredMovies = data.filter((movie) =>
-          movie.nameRU.toLowerCase().includes(searchTerm.toLowerCase())
+        const filteredMovies = data.filter(
+          (movie) =>
+            (movie.nameRU &&
+              movie.nameRU.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (movie.nameEN &&
+              movie.nameEN.toLowerCase().includes(searchTerm.toLowerCase()))
         )
         setMovies(filteredMovies)
         setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
-        localStorage.setItem('searchTerm', searchTerm);
-        localStorage.setItem('movies', JSON.stringify(filteredMovies));
+        localStorage.setItem("searchTerm", searchTerm)
+        localStorage.setItem("movies", JSON.stringify(filteredMovies))
         // + добавить значение короткометражек
       })
       .catch((err) => {
@@ -63,34 +66,32 @@ function Movies() {
 
   const calculateVisibleAddition = (width) => {
     if (width >= 1280) {
-      return { visible: 12, add: 3 }
+      return {visible: 12, add: 3}
     } else if (width >= 768) {
-      return { visible: 8, add: 2 }
+      return {visible: 8, add: 2}
     } else if (width >= 320) {
-      return { visible: 5, add: 2 }
+      return {visible: 5, add: 2}
     }
   }
 
   const loadMore = () => {
-    const { add } = calculateVisibleAddition(window.innerWidth)
+    const {add} = calculateVisibleAddition(window.innerWidth)
     setVisibleMovies((prev) => Math.min(prev + add, movies.length))
   }
 
-  if (loading) return <div>Загрузка...</div>
+  // if (loading) return <div>Загрузка...</div>
+  // if (loading) return <Preloader />
   if (error) return <div>Во время запроса произошла ошибка...</div>
-  // if (movies.length === 0) return <div>Ничего не найдено</div>;
-
-  console.log(`storedSearchTerm2: ${savedSearchTerm}`);
 
   return (
     <main>
-      <SearchForm
-        onSearch={getAndFilterMovies} />
+      <SearchForm onSearch={getAndFilterMovies} />
       <MoviesCardList
         movies={movies.slice(0, visibleMovies)}
         loadMore={loadMore}
         visibleMovies={visibleMovies}
         moviesLength={movies.length}
+        loading={loading}
       />
     </main>
   )
