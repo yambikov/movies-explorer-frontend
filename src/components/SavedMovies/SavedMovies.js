@@ -113,25 +113,6 @@ function SavedMovies() {
       .catch((err) => console.log(err));
   };
 
-  // const handleMovieDelete = (props) => {
-  //   console.log("handleMovieDelete");
-  //   console.log(props);
-  //   const movieToDelete = savedMovies.find((movie) => movie.movieId === props.movieId);
-  
-  //   if (movieToDelete) {
-  //     MainApi.deleteMovie(movieToDelete)
-  //       .then(() => {
-  //         // console.log(savedMovies);
-  //         const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== movieToDelete._id);
-  //         setSavedMovies(updatedSavedMovies);
-  //         // console.log(savedMovies);
-
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } else {
-  //     console.error("Не найден фильм для удаления");
-  //   }
-  // };
 
   const handleMovieDelete = (props) => {
   console.log(savedMovies);
@@ -161,6 +142,7 @@ function SavedMovies() {
         onSearch={handleSearch} 
         searchError={searchError}
         toggleShortFilter={toggleShortFilter}
+        cardsFromSavedMovies={cardsFromSavedMovies}
       />
       <MoviesCardList
         movies={filteredMovies.slice(0, visibleMovies)}

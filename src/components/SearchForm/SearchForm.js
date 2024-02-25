@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import togglerOn from '../../images/smalltumb_color.svg';
 import togglerOff from '../../images/smalltumb_black.svg';
 
-function SearchForm({ onSearch, searchError, toggleShortFilter }) {
+function SearchForm({ onSearch, searchError, toggleShortFilter, cardsFromSavedMovies }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [inputError, setInputError] = useState("");
   const [isShort, setIsShort] = useState(false); // Исходное состояние false
@@ -14,7 +14,7 @@ function SearchForm({ onSearch, searchError, toggleShortFilter }) {
     const storedIsShort = localStorage.getItem("isShort") === "true"; // Преобразование строки в булево значение
     // console.log(`before setIsShort in useEffect in SearchForm isShort: ${storedIsShort}`);
 
-    if (storedSearchTerm) {
+    if (storedSearchTerm && !cardsFromSavedMovies) {
       setSearchTerm(storedSearchTerm);
     }
     setIsShort(storedIsShort); // Установка значения чекбокса из локального хранилища
