@@ -30,7 +30,7 @@ function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies
 
   const cardLikeButtonClassName = `movie-card__like-button link ${
     isLiked && "movie-card__like-button_active"
-  }${savedMovieLink ? " movie-card__saved-movie-delete" : ""}`
+  }${savedMovieLink ? " movie-card__like-button_active movie-card__saved-movie-delete" : ""}`
 
   function formatDuration(minutesDuration) {
     const hours = Math.floor(minutesDuration / 60)
