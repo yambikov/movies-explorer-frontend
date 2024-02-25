@@ -1,76 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react"
-import SearchForm from "../SearchForm/SearchForm"
-import MoviesCardList from "../MoviesCardList/MoviesCardList"
-// import moviesApi from "../../utils/MoviesApi"
-import MainApi from "../../utils/MainApi"
+import React, { useState, useEffect } from "react";
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import MainApi from "../../utils/MainApi";
 
 function SavedMovies() {
-  const [allMovies, setAllMovies] = useState([]) // Исходный список всех фильмов
-  const [filteredMovies, setFilteredMovies] = useState([]) // Отфильтрованные фильмы
-  const [searchError, setSearchError] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [visibleMovies, setVisibleMovies] = useState([])
-  const [isShort, setIsShort] = useState(
-    JSON.parse(localStorage.getItem("isShort")) || false
-  )
-  const [noResultsFound, setNoResultsFound] = useState(false)
-
   const [savedMovies, setSavedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [searchError, setSearchError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [visibleMovies, setVisibleMovies] = useState(0);
+  const [isShort, setIsShort] = useState(JSON.parse(localStorage.getItem("isShort")) || false);
+  const [noResultsFound, setNoResultsFound] = useState(false);
   const cardsFromSavedMovies = true
-
-  const toggleShortFilter = () => {
-    setIsShort(!isShort);
-    localStorage.setItem("isShort", JSON.stringify(!isShort));
-    setFilteredMovies(filterMovies(savedMovies, ""));
-  };
-
-  useEffect(() => {
-    const storedSearchTerm = localStorage.getItem("searchTerm")
-    const storedMovies = JSON.parse(localStorage.getItem("movies"))
-
-    if (storedMovies && storedSearchTerm) {
-      setAllMovies(storedMovies)
-      filterMovies(storedMovies, isShort) // Используем isShort напрямую
-      setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
-    }
-
-    const handleResize = () => {
-      clearTimeout(window.resizeDebounce)
-      window.resizeDebounce = setTimeout(() => {
-        setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible)
-      }, 100)
-    }
-
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [isShort]) // Добавляем isShort в список зависимостей
-
-  useEffect(() => {
-    filterMovies(allMovies, isShort) // Перефильтровываем фильмы при изменении isShort
-  }, [allMovies, isShort])
-
-
-  useEffect(() => {
-    setFilteredMovies(filterMovies(savedMovies, ""));
-  }, [isShort, savedMovies]);
-
-  const filterMovies = (movies, searchTerm = "") => {
-    // Проверяем, что searchTerm является строкой
-    const searchQuery = typeof searchTerm === "string" ? searchTerm.toLowerCase() : "";
-  
-    return movies.filter((movie) =>
-      (movie.nameRU.toLowerCase().includes(searchQuery) || movie.nameEN.toLowerCase().includes(searchQuery)) &&
-      (!isShort || movie.duration <= 40)
-    );
-  };
 
   useEffect(() => {
     setLoading(true);
     MainApi.getSavedMovies()
       .then((movies) => {
         setSavedMovies(movies);
-        setFilteredMovies(filterMovies(movies, ""));
+        filterAndSetMovies(movies, "");
       })
       .catch((err) => {
         console.error(err);
@@ -78,33 +27,65 @@ function SavedMovies() {
       .finally(() => setLoading(false));
   }, []);
 
+  const toggleShortFilter = () => {
+    const newIsShort = !isShort;
+    setIsShort(newIsShort);
+    localStorage.setItem("isShort", JSON.stringify(newIsShort));
+    filterAndSetMovies(savedMovies, "");
+  };
+
+  useEffect(() => {
+    filterAndSetMovies(savedMovies, "");
+  }, [isShort, savedMovies]);
+
+  const filterMovies = (movies, searchTerm = "") => {
+    const searchQuery = searchTerm.toLowerCase();
+    return movies.filter(movie =>
+      (movie.nameRU.toLowerCase().includes(searchQuery) || movie.nameEN.toLowerCase().includes(searchQuery)) &&
+      (!isShort || movie.duration <= 40)
+    );
+  };
+
+  const filterAndSetMovies = (movies, searchTerm) => {
+    const filtered = filterMovies(movies, searchTerm);
+    setFilteredMovies(filtered);
+    setNoResultsFound(filtered.length === 0);
+    setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible);
+  };
 
   const calculateVisibleAddition = (width) => {
     if (width >= 1280) {
-      return { visible: 12, add: 3 }
+      return { visible: 12, add: 3 };
     } else if (width >= 768) {
-      return { visible: 8, add: 2 }
+      return { visible: 8, add: 2 };
     } else {
-      return { visible: 5, add: 2 }
+      return { visible: 5, add: 2 };
     }
-  }
+  };
+
+  useEffect(() => {
+    const updateVisibleMovies = () => {
+      setVisibleMovies(calculateVisibleAddition(window.innerWidth).visible);
+    };
+
+    window.addEventListener("resize", updateVisibleMovies);
+    return () => window.removeEventListener("resize", updateVisibleMovies);
+  }, []);
 
   const loadMore = () => {
-    const { add } = calculateVisibleAddition(window.innerWidth)
-    setVisibleMovies((prev) => Math.min(prev + add, filteredMovies.length))
-  }
+    const { add } = calculateVisibleAddition(window.innerWidth);
+    setVisibleMovies(prev => Math.min(prev + add, filteredMovies.length));
+  };
 
   const handleSearch = (searchTerm) => {
     setSearchError(false);
     try {
-      const result = filterMovies(savedMovies, searchTerm);
-      setFilteredMovies(result);
-      setNoResultsFound(result.length === 0);
+      filterAndSetMovies(savedMovies, searchTerm);
     } catch (error) {
       setSearchError(true);
+      console.error("Search error:", error);
     }
   };
-
   const handleMovieSave = (movie) => {
     MainApi.postMovie(movie)
       .then((savedMovie) => {
@@ -115,7 +96,6 @@ function SavedMovies() {
 
 
   const handleMovieDelete = (props) => {
-  console.log(savedMovies);
     const movieToDelete = savedMovies.find((movie) => movie.movieId === props);
     if (movieToDelete) {
       MainApi.deleteMovie(movieToDelete)
@@ -132,9 +112,10 @@ function SavedMovies() {
     }
   };
 
-  console.log(filteredMovies)
 
 
+
+console.log(filteredMovies);
   return (
     <main>
       <SearchForm

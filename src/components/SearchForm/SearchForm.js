@@ -18,6 +18,7 @@ function SearchForm({ onSearch, searchError, toggleShortFilter, cardsFromSavedMo
       setSearchTerm(storedSearchTerm);
     }
     setIsShort(storedIsShort); // Установка значения чекбокса из локального хранилища
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = (e) => {

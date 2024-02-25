@@ -19,17 +19,11 @@ function MoviesCard({ key, movieId, nameRU, image, duration, trailerLink, savedM
   }
 
   const handleSaveMovie = () => {
-    console.log('save');
-    console.log(movieId);
     onMovieSave({ key, movieId, nameRU, image, duration, trailerLink, country, director, year, description, thumbnail, nameEN });
     setIsLiked(true);
   }
 
   const handleDeleteMovie = () => {
-    console.log();
-    console.log('delete');
-    console.log({ movieId });
-    console.log(movie);
     // onMovieDelete({ movieId })
     onMovieDelete(!cardsFromSavedMovies ? { movieId }  : movie.movieId );
     setIsLiked(false);
@@ -55,7 +49,7 @@ function MoviesCard({ key, movieId, nameRU, image, duration, trailerLink, savedM
   }
 
   return (
-    <li
+    <li key={key}
       className={`movie-card movies-card-list__card ${savedMovieLink ? " movie-card__saved-movie-card" : ""
         }`}
     >
