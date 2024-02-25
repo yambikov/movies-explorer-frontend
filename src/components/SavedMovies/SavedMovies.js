@@ -17,6 +17,7 @@ function SavedMovies() {
   const [noResultsFound, setNoResultsFound] = useState(false)
 
   const [savedMovies, setSavedMovies] = useState([]);
+  const cardsFromSavedMovies = true
 
   const toggleShortFilter = () => {
     setIsShort(!isShort);
@@ -112,16 +113,36 @@ function SavedMovies() {
       .catch((err) => console.log(err));
   };
 
-  const handleMovieDelete = (props) => {
-    const movieToDelete = savedMovies.find((movie) => movie.movieId === props.movieId);
+  // const handleMovieDelete = (props) => {
+  //   console.log("handleMovieDelete");
+  //   console.log(props);
+  //   const movieToDelete = savedMovies.find((movie) => movie.movieId === props.movieId);
   
+  //   if (movieToDelete) {
+  //     MainApi.deleteMovie(movieToDelete)
+  //       .then(() => {
+  //         // console.log(savedMovies);
+  //         const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== movieToDelete._id);
+  //         setSavedMovies(updatedSavedMovies);
+  //         // console.log(savedMovies);
+
+  //       })
+  //       .catch((err) => console.log(err));
+  //   } else {
+  //     console.error("Не найден фильм для удаления");
+  //   }
+  // };
+
+  const handleMovieDelete = (props) => {
+  console.log(savedMovies);
+    const movieToDelete = savedMovies.find((movie) => movie.movieId === props);
     if (movieToDelete) {
       MainApi.deleteMovie(movieToDelete)
         .then(() => {
-          console.log(savedMovies);
+          // console.log(savedMovies);
           const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== movieToDelete._id);
           setSavedMovies(updatedSavedMovies);
-          console.log(savedMovies);
+          // console.log(savedMovies);
 
         })
         .catch((err) => console.log(err));
@@ -129,6 +150,8 @@ function SavedMovies() {
       console.error("Не найден фильм для удаления");
     }
   };
+
+  console.log(filteredMovies)
 
 
   return (
@@ -150,6 +173,7 @@ function SavedMovies() {
         onMovieDelete={handleMovieDelete}
 
         savedMovies={savedMovies}
+        cardsFromSavedMovies={cardsFromSavedMovies}
       // _id={savedMoviesId}
       />
     </main>

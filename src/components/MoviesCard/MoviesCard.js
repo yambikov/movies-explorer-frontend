@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {useLocation} from "react-router-dom"
+import { useLocation } from "react-router-dom";
 
-function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies, onMovieSave, onMovieDelete, country, director, year, description, thumbnail, nameEN }) {
+function MoviesCard({ key, movieId, nameRU, image, duration, trailerLink, savedMovies, onMovieSave, onMovieDelete, country, director, year, description, thumbnail, nameEN, cardsFromSavedMovies, movie }) {
   const location = useLocation()
   const savedMovieLink = location.pathname === "/saved-movies"
 
@@ -12,25 +12,31 @@ function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies
   }, [savedMovies, movieId]);
 
   const [isLiked, setIsLiked] = useState(false);
+  // console.log(image);
 
   const handleLikeClick = () => {
-    isLiked ? handleDeleteMovie() : handleSaveMovie();
+    isLiked || cardsFromSavedMovies ? handleDeleteMovie() : handleSaveMovie();
   }
-  
 
   const handleSaveMovie = () => {
-    onMovieSave({ movieId, nameRU, image, duration, trailerLink, country, director, year, description, thumbnail, nameEN});
-    setIsLiked(true); 
+    console.log('save');
+    console.log(movieId);
+    onMovieSave({ key, movieId, nameRU, image, duration, trailerLink, country, director, year, description, thumbnail, nameEN });
+    setIsLiked(true);
   }
 
   const handleDeleteMovie = () => {
-    onMovieDelete({movieId})
+    console.log();
+    console.log('delete');
+    console.log({ movieId });
+    console.log(movie);
+    // onMovieDelete({ movieId })
+    onMovieDelete(!cardsFromSavedMovies ? { movieId }  : movie.movieId );
     setIsLiked(false);
   }
 
-  const cardLikeButtonClassName = `movie-card__like-button link ${
-    isLiked && "movie-card__like-button_active"
-  }${savedMovieLink ? " movie-card__like-button_active movie-card__saved-movie-delete" : ""}`
+  const cardLikeButtonClassName = `movie-card__like-button link ${isLiked && "movie-card__like-button_active"
+    }${savedMovieLink ? " movie-card__like-button_active movie-card__saved-movie-delete" : ""}`
 
   function formatDuration(minutesDuration) {
     const hours = Math.floor(minutesDuration / 60)
@@ -49,10 +55,9 @@ function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies
   }
 
   return (
-    <div
-      className={`movie-card movies-card-list__card ${
-        savedMovieLink ? " movie-card__saved-movie-card" : ""
-      }`}
+    <li
+      className={`movie-card movies-card-list__card ${savedMovieLink ? " movie-card__saved-movie-card" : ""
+        }`}
     >
       <img
         className="movie-card__image"
@@ -72,7 +77,7 @@ function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies
           onClick={handleLikeClick}
         ></button>
       </div>
-    </div>
+    </li>
   )
 }
 

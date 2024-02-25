@@ -3,7 +3,8 @@ import MoviesCard from "../MoviesCard/MoviesCard"
 import Preloader from "../Preloader/Preloader"
 
 function MoviesCardList({
-  movies = [],
+  // movies = [],
+  movies,
   visibleMovies,
   loadMore,
   moviesLength,
@@ -13,11 +14,15 @@ function MoviesCardList({
   onMovieDelete,
   _id,
   savedMovies,
+  cardsFromSavedMovies,
 }) {
+
+  console.log(movies)
+
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
-        <div
+        <ul
           className={
             loading
               ? "movies-card-list__container_preloader"
@@ -30,13 +35,22 @@ function MoviesCardList({
             <p>Ничего не найдено</p> // Использование <p> для текста
           ) : (
             movies.map((movie) => (
+
               <MoviesCard
                 key={movie.id}
-                // movie={movie}
                 nameRU={movie.nameRU}
                 nameEN={movie.nameEN}
-                image={`https://api.nomoreparties.co${movie.image.url}`}
-                thumbnail={`https://api.nomoreparties.co${movie.image.url}`}
+                thumbnail={
+                  cardsFromSavedMovies
+                    ? movie.image
+                    : `https://api.nomoreparties.co${movie.image.url}`
+                }
+                image={
+                  cardsFromSavedMovies
+                    ? movie.image
+                    : `https://api.nomoreparties.co${movie.image.url}`
+                }
+
                 duration={movie.duration}
                 trailerLink={movie.trailerLink}
                 country={movie.country}
@@ -45,13 +59,16 @@ function MoviesCardList({
                 description={movie.description}
                 movieId={movie.id}
                 savedMovies={savedMovies}
-
                 onMovieSave={onMovieSave}
                 onMovieDelete={onMovieDelete}
+                cardsFromSavedMovies={cardsFromSavedMovies}
+                movie={movie}
               />
+
             ))
+
           )}
-        </div>
+        </ul>
         {visibleMovies < moviesLength &&
           !noResultsFound && ( // Условие для отображения кнопки "Ещё", если есть результаты
             <button

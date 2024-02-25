@@ -54,7 +54,7 @@ class Api {
   }
 
   deleteMovie(data) {
-    console.log(data._id);
+    // console.log(data._id);
     return this._makeRequest(`movies/${data._id}`, 'DELETE');
   }
 
