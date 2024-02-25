@@ -4,7 +4,7 @@ class Api {
     this.headers = options.headers
   }
 
-_makeRequest(url, method, data) {
+  _makeRequest(url, method, data) {
     const requestOptions = {
       method,
       headers: {
@@ -20,10 +20,10 @@ _makeRequest(url, method, data) {
         return res.json()
       } else {
         return res.json()
-        .then((err) => {
-          // throw new Error(errorData.message || `Ошибка: ${res.status}`);
-          throw new Error(err.message);
-        });
+          .then((err) => {
+            // throw new Error(errorData.message || `Ошибка: ${res.status}`);
+            throw new Error(err.message);
+          });
       }
     })
   }
@@ -45,8 +45,26 @@ _makeRequest(url, method, data) {
     return this._makeRequest("signin", "POST", data)
   }
 
+
+  // putLike(data) {
+  //   return this._makeRequest(`cards/${data}/likes`, 'PUT');
+  // }
+
+  postMovie(data) {
+    return this._makeRequest('movies', 'POST', data);
+  }
+
+  deleteMovie(data) {
+    console.log(data._id);
+    return this._makeRequest(`movies/${data._id}`, 'DELETE');
+  }
+
+  // Получить список начальных карточек
+  getSavedMovies() {
+    return this._makeRequest('movies', 'GET'); // возвращает массив карточек
+  }
+
   checkToken(data) {
-    // Обновите заголовки для этого запроса, так как токен передается вручную
     const requestOptions = {
       method: "GET",
       headers: {

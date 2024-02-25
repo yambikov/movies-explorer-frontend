@@ -8,8 +8,15 @@ function MoviesCardList({
   loadMore,
   moviesLength,
   loading,
-  noResultsFound // Добавлена запятая
+  noResultsFound,
+  onMovieSave,
+  onMovieDelete,
+  _id,
+  savedMovies
 }) {
+
+  const isMovieLiked = (movie) => savedMovies.some((savedMovie) => savedMovie.movieId === movie.id);
+
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
@@ -28,11 +35,25 @@ function MoviesCardList({
             movies.map((movie) => (
               <MoviesCard
                 key={movie.id}
-                movie={movie}
+                // movie={movie}
                 nameRU={movie.nameRU}
+                nameEN={movie.nameEN}
                 image={`https://api.nomoreparties.co${movie.image.url}`}
+                thumbnail={`https://api.nomoreparties.co${movie.image.url}`}
                 duration={movie.duration}
                 trailerLink={movie.trailerLink}
+                country={movie.country}
+                director={movie.director}
+                year={movie.year}
+                description={movie.description}
+                movieId={movie.id}
+                
+                // _id={savedMovies._id}
+
+
+
+                onMovieSave={onMovieSave}
+                onMovieDelete={onMovieDelete}
               />
             ))
           )}

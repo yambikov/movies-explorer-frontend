@@ -3,14 +3,37 @@ import {useState} from "react"
 import {useLocation} from "react-router-dom"
 
 function MoviesCard(props) {
+  // console.log(props);
   const location = useLocation()
   const savedMovieLink = location.pathname === "/saved-movies"
 
   const [isLiked, setIsLiked] = useState(savedMovieLink)
 
-  const toggleLike = () => {
-    setIsLiked(!isLiked)
+  // const handleLikeClick = () => {
+  //   setIsLiked(!isLiked)
+  // }
+  const handleLikeClick = () => {
+    isLiked ? handleDeleteMovie(props.movieId) : handleSaveMovie(props);
   }
+  
+
+  const handleSaveMovie = () => {
+    console.log(`MoviesCard.handleSaveMovie props:`);
+    console.log(props);
+    console.log('=======================================================================');
+    props.onMovieSave(props)
+    setIsLiked(true); 
+  }
+
+  const handleDeleteMovie = () => {
+    console.log(`MoviesCard.handleDeleteMovie props:`);
+    console.log(props);
+    console.log('=======================================================================');
+    props.onMovieDelete(props)
+    setIsLiked(false);
+  }
+
+
 
   const cardLikeButtonClassName = `movie-card__like-button link ${
     isLiked && "movie-card__like-button_active"
@@ -28,11 +51,9 @@ function MoviesCard(props) {
 
   const formattedDuration = formatDuration(props.duration)
 
- 
-    const handleCardClick = () => {
-      window.open(props.trailerLink, '_blank');
-    };
-
+  const handleCardClick = () => {
+    window.open(props.trailerLink, "_blank")
+  }
 
   return (
     <div
@@ -44,7 +65,12 @@ function MoviesCard(props) {
         // onClick={handleClick}
         className="movie-card__image">
       </div> */}
-      <img className="movie-card__image" alt={props.nameRU} src={props.image} onClick={handleCardClick} />
+      <img
+        className="movie-card__image"
+        alt={props.nameRU}
+        src={props.image}
+        onClick={handleCardClick}
+      />
 
       <div className="movie-card__container">
         <div className="movie-card__info">
@@ -54,7 +80,7 @@ function MoviesCard(props) {
         <button
           className={cardLikeButtonClassName}
           type="button"
-          onClick={toggleLike}
+          onClick={handleLikeClick}
         ></button>
       </div>
     </div>

@@ -12,7 +12,7 @@ function SearchForm({ onSearch, searchError, toggleShortFilter }) {
     // Чтение сохраненных значений из localStorage
     const storedSearchTerm = localStorage.getItem("searchTerm");
     const storedIsShort = localStorage.getItem("isShort") === "true"; // Преобразование строки в булево значение
-    console.log(`before setIsShort in useEffect in SearchForm isShort: ${storedIsShort}`);
+    // console.log(`before setIsShort in useEffect in SearchForm isShort: ${storedIsShort}`);
 
     if (storedSearchTerm) {
       setSearchTerm(storedSearchTerm);
@@ -35,7 +35,7 @@ function SearchForm({ onSearch, searchError, toggleShortFilter }) {
     setIsShort(newIsShort);
     localStorage.setItem("isShort", newIsShort); // Сохранение состояния чекбокса в localStorage
     toggleShortFilter(); // Вызов функции для обновления фильтра в родительском компоненте
-    console.log(`after toggle shortFilmToggler in search form isShort: ${newIsShort}`);
+    // console.log(`after toggle shortFilmToggler in search form isShort: ${newIsShort}`);
   };
 
   return (
