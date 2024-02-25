@@ -1,39 +1,32 @@
-import React from "react"
-import {useState} from "react"
+import React, { useEffect, useState } from "react";
 import {useLocation} from "react-router-dom"
 
-function MoviesCard(props) {
-  // console.log(props);
+function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies, onMovieSave, onMovieDelete, country, director, year, description, thumbnail, nameEN }) {
   const location = useLocation()
   const savedMovieLink = location.pathname === "/saved-movies"
 
-  const [isLiked, setIsLiked] = useState(savedMovieLink)
+  // const [isLiked, setIsLiked] = useState(savedMovieLink)
+  useEffect(() => {
+    const isMovieSaved = savedMovies.some((savedMovie) => savedMovie.movieId === movieId);
+    setIsLiked(isMovieSaved);
+  }, [savedMovies, movieId]);
 
-  // const handleLikeClick = () => {
-  //   setIsLiked(!isLiked)
-  // }
+  const [isLiked, setIsLiked] = useState(false);
+
   const handleLikeClick = () => {
-    isLiked ? handleDeleteMovie(props.movieId) : handleSaveMovie(props);
+    isLiked ? handleDeleteMovie() : handleSaveMovie();
   }
   
 
   const handleSaveMovie = () => {
-    console.log(`MoviesCard.handleSaveMovie props:`);
-    console.log(props);
-    console.log('=======================================================================');
-    props.onMovieSave(props)
+    onMovieSave({ movieId, nameRU, image, duration, trailerLink, country, director, year, description, thumbnail, nameEN});
     setIsLiked(true); 
   }
 
   const handleDeleteMovie = () => {
-    console.log(`MoviesCard.handleDeleteMovie props:`);
-    console.log(props);
-    console.log('=======================================================================');
-    props.onMovieDelete(props)
+    onMovieDelete({movieId})
     setIsLiked(false);
   }
-
-
 
   const cardLikeButtonClassName = `movie-card__like-button link ${
     isLiked && "movie-card__like-button_active"
@@ -49,10 +42,10 @@ function MoviesCard(props) {
     return hoursString + minutesString
   }
 
-  const formattedDuration = formatDuration(props.duration)
+  const formattedDuration = formatDuration(duration)
 
   const handleCardClick = () => {
-    window.open(props.trailerLink, "_blank")
+    window.open(trailerLink, "_blank")
   }
 
   return (
@@ -61,20 +54,16 @@ function MoviesCard(props) {
         savedMovieLink ? " movie-card__saved-movie-card" : ""
       }`}
     >
-      {/* <div
-        // onClick={handleClick}
-        className="movie-card__image">
-      </div> */}
       <img
         className="movie-card__image"
-        alt={props.nameRU}
-        src={props.image}
+        alt={nameRU}
+        src={image}
         onClick={handleCardClick}
       />
 
       <div className="movie-card__container">
         <div className="movie-card__info">
-          <h2 className="movie-card__title">{props.nameRU}</h2>
+          <h2 className="movie-card__title">{nameRU}</h2>
           <span className="movie-card__chrono">{formattedDuration}</span>
         </div>
         <button

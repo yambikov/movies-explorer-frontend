@@ -62,7 +62,7 @@ function Movies() {
     MainApi.getSavedMovies()
       .then((res) => {
         setSavedMovies(res);
-        
+
       })
       .catch((err) => {
         console.log(err);
@@ -108,18 +108,6 @@ function Movies() {
     setVisibleMovies((prev) => Math.min(prev + add, filteredMovies.length))
   }
 
-  // const handleMovieSave = (data) => {
-  //   MainApi.postMovie(data)
-  //     .then((res) => {
-  //       setSavedMovies([...savedMovies, res]); // Добавляем новую карточку в сохраненные
-  //       console.log(`Movies.handleMovieSave savedMovies:`);
-  //       console.log(savedMovies);
-  //       console.log('=======================================================================');
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   const handleMovieSave = (movie) => {
     MainApi.postMovie(movie)
@@ -130,65 +118,23 @@ function Movies() {
   };
 
   const handleMovieDelete = (props) => {
-    console.log(`Movies.handleMovieDelete movieId:`);
-    console.log(savedMovies);
-    console.log(props.movieId);
-    console.log('=======================================================================');
-
     const movieToDelete = savedMovies.find((movie) => movie.movieId === props.movieId);
-    console.log(movieToDelete);
-    console.log(movieToDelete._id);
- 
-  MainApi.deleteMovie(movieToDelete)
-        .then((res) => {console.log(res);})
-    //       setSavedMovies(savedMovies.filter((movie) => movie._id !== movieToDelete._id));
-    //     })
-    //     .catch((err) => console.log(err));
-    // } else {
-    //   console.error("Failed to find the movie to delete or movie lacks an '_id' property");
-    // }
+  
+    if (movieToDelete) {
+      MainApi.deleteMovie(movieToDelete)
+        .then(() => {
+          console.log(savedMovies);
+          const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== movieToDelete._id);
+          setSavedMovies(updatedSavedMovies);
+          console.log(savedMovies);
+
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.error("Не найден фильм для удаления");
+    }
   };
-  
-  
 
-
-  // const handleMovieDelete = (data) => {
-  //   // найти в сохраненных фильмы с таким id
-  //   console.log(`Movies.handleMovieDelete data:`);
-  //   console.log(data);
-  //   console.log('=======================================================================');
-  //   MainApi.deleteMovie(data)
-  //     .then((res) => {
-  //       // console.log(res)
-  //       // console.log(data)
-  //       const updatedSavedMovies = savedMovies.filter(
-  //         (movie) => movie._id !== data._id
-  //       );
-  //       console.log(`updatedSavedMovies: ${updatedSavedMovies}`);
-  //       setSavedMovies(updatedSavedMovies); // Удаляем карточку из сохраненных
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // const handleMovieDelete = (data) => {
-  //   console.log(data)
-  //   MainApi.deleteMovie(data).then((res) => {
-  //     console.log(res)
-  //   })
-  // }
-
-  // function handleCardLike(card) {
-  //   const isLiked = card.likes.some((i) => i === currentUser._id);
-  //   (isLiked ? apiConfig.deleteLike(card._id) : apiConfig.putLike(card._id))
-  //     .then((res) => {
-  //       setCards((state) => state.map((c) => (c._id === card._id ? res : c)))
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // }
 
   return (
     <main>
@@ -208,7 +154,7 @@ function Movies() {
         onMovieDelete={handleMovieDelete}
 
         savedMovies={savedMovies}
-        // _id={savedMoviesId}
+      // _id={savedMoviesId}
       />
     </main>
   )

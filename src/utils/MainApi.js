@@ -28,7 +28,6 @@ class Api {
     })
   }
 
-
   getUserInfoApi() {
     return this._makeRequest("users/me", "GET")
   }

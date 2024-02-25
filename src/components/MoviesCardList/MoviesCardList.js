@@ -1,6 +1,6 @@
-import React from "react";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import Preloader from "../Preloader/Preloader";
+import React from "react"
+import MoviesCard from "../MoviesCard/MoviesCard"
+import Preloader from "../Preloader/Preloader"
 
 function MoviesCardList({
   movies = [],
@@ -12,11 +12,8 @@ function MoviesCardList({
   onMovieSave,
   onMovieDelete,
   _id,
-  savedMovies
+  savedMovies,
 }) {
-
-  const isMovieLiked = (movie) => savedMovies.some((savedMovie) => savedMovie.movieId === movie.id);
-
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
@@ -47,10 +44,7 @@ function MoviesCardList({
                 year={movie.year}
                 description={movie.description}
                 movieId={movie.id}
-                
-                // _id={savedMovies._id}
-
-
+                savedMovies={savedMovies}
 
                 onMovieSave={onMovieSave}
                 onMovieDelete={onMovieDelete}
@@ -58,18 +52,19 @@ function MoviesCardList({
             ))
           )}
         </div>
-        {visibleMovies < moviesLength && !noResultsFound && ( // Условие для отображения кнопки "Ещё", если есть результаты
-          <button
-            type="button"
-            className="movies-card-list__button link"
-            onClick={loadMore}
-          >
-            Ещё
-          </button>
-        )}
+        {visibleMovies < moviesLength &&
+          !noResultsFound && ( // Условие для отображения кнопки "Ещё", если есть результаты
+            <button
+              type="button"
+              className="movies-card-list__button link"
+              onClick={loadMore}
+            >
+              Ещё
+            </button>
+          )}
       </div>
     </section>
-  );
+  )
 }
 
-export default MoviesCardList;
+export default MoviesCardList
