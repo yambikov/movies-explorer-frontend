@@ -18,7 +18,7 @@ function MoviesCardList({
 }) {
 
   const initialSearchDone = localStorage.getItem("initialSearchDone");
-  console.log(initialSearchDone)
+  console.log(movies)
 
   return (
     <section className="movies-card-list">
@@ -40,7 +40,12 @@ function MoviesCardList({
             movies.map((movie) => (
 
               <MoviesCard
-                key={movie.id}
+                // key={movie.id}
+                key={
+                  cardsFromSavedMovies
+                    ? movie._id
+                    : movie.id
+                }
                 nameRU={movie.nameRU}
                 nameEN={movie.nameEN}
                 thumbnail={

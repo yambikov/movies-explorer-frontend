@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function MoviesCard({ key, movieId, nameRU, image, duration, trailerLink, savedMovies, onMovieSave, onMovieDelete, country, director, year, description, thumbnail, nameEN, cardsFromSavedMovies, movie }) {
+function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies, onMovieSave, onMovieDelete, country, director, year, description, thumbnail, nameEN, cardsFromSavedMovies, movie }) {
   const location = useLocation()
   const savedMovieLink = location.pathname === "/saved-movies"
 
@@ -19,7 +19,7 @@ function MoviesCard({ key, movieId, nameRU, image, duration, trailerLink, savedM
   }
 
   const handleSaveMovie = () => {
-    onMovieSave({ key, movieId, nameRU, image, duration, trailerLink, country, director, year, description, thumbnail, nameEN });
+    onMovieSave({ movieId, nameRU, image, duration, trailerLink, country, director, year, description, thumbnail, nameEN });
     setIsLiked(true);
   }
 
@@ -49,7 +49,7 @@ function MoviesCard({ key, movieId, nameRU, image, duration, trailerLink, savedM
   }
 
   return (
-    <li key={key}
+    <li 
       className={`movie-card movies-card-list__card ${savedMovieLink ? " movie-card__saved-movie-card" : ""
         }`}
     >
