@@ -17,6 +17,7 @@ const PortfolioLink = ({ href, children }) => (
 );
 
 const AboutMe = forwardRef((props, ref) => {
+  // eslint-disable-next-line no-unused-vars
   const currentUser = useContext(CurrentUserContext);
 
 
@@ -27,7 +28,8 @@ const AboutMe = forwardRef((props, ref) => {
         <div className="about-me__section-wrapper">
           <div className="about-me__info-section">
             <div className='about-me__info-container'>
-              <div className="about-me__name">{currentUser.name}</div>
+              {/* <div className="about-me__name">{currentUser.name}</div> */}
+              <div className="about-me__name">Виктор</div>
               <div className="about-me__info">Фронтенд-разработчик, 35 лет</div>
               <div className="about-me__bio">Я родился в Оренбурге, живу в Москве. Закончил факультет экономики ОГУ, а также режиссерский факультет ЧГИК. Я люблю путешествия, особенно велотуризм. Свой первый код написал 20 лет назад, когда в качестве экзамена по информатике, сделал сайт для своей школы. Работал режиссером на телеканале Россия, строил видеопродакшены в компаниях VK и Сбер. Мне интересно совместить программирование с производством медиаконтента.</div>
               {/* <div className="about-me__bio">Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить.

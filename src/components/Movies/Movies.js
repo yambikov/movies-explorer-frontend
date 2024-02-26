@@ -123,10 +123,10 @@ function Movies() {
     if (movieToDelete) {
       MainApi.deleteMovie(movieToDelete)
         .then(() => {
-          console.log(savedMovies);
+          // console.log(savedMovies);
           const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== movieToDelete._id);
           setSavedMovies(updatedSavedMovies);
-          console.log(savedMovies);
+          // console.log(savedMovies);
 
         })
         .catch((err) => console.log(err));

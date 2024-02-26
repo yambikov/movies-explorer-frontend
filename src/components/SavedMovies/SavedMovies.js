@@ -115,7 +115,7 @@ function SavedMovies() {
 
 
 
-console.log(filteredMovies);
+// console.log(filteredMovies);
   return (
     <main>
       <SearchForm

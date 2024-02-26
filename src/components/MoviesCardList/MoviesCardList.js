@@ -18,7 +18,7 @@ function MoviesCardList({
 }) {
 
   const initialSearchDone = localStorage.getItem("initialSearchDone");
-  console.log(movies)
+  // console.log(movies)
 
   return (
     <section className="movies-card-list">
