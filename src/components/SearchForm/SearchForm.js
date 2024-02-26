@@ -28,6 +28,7 @@ function SearchForm({ onSearch, searchError, toggleShortFilter, cardsFromSavedMo
     } else {
       setInputError("");
       onSearch(searchTerm);
+      localStorage.setItem("initialSearchDone", true);
     }
   };
 

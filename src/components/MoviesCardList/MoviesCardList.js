@@ -17,7 +17,8 @@ function MoviesCardList({
   cardsFromSavedMovies,
 }) {
 
-  // console.log(movies)
+  const initialSearchDone = localStorage.getItem("initialSearchDone");
+  console.log(initialSearchDone)
 
   return (
     <section className="movies-card-list">
@@ -31,8 +32,10 @@ function MoviesCardList({
         >
           {loading ? (
             <Preloader />
-          ) : noResultsFound ? ( // Использование тернарного оператора для условного рендеринга
-            <p>Ничего не найдено</p> // Использование <p> для текста
+          ) : !initialSearchDone ? ( // Проверка значения в localStorage
+            <p></p> // Текст, отображаемый, если условие истинно
+          ) : noResultsFound ? (
+            <p>Ничего не найдено</p>
           ) : (
             movies.map((movie) => (
 
