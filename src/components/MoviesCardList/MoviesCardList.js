@@ -32,7 +32,7 @@ function MoviesCardList({
         >
           {loading ? (
             <Preloader />
-          ) : !initialSearchDone ? ( // Проверка значения в localStorage
+          ) : !initialSearchDone && !cardsFromSavedMovies  ? ( // Проверка значения в localStorage
             <p></p> // Текст, отображаемый, если условие истинно
           ) : noResultsFound ? (
             <p>Ничего не найдено</p>

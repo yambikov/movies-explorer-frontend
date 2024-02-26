@@ -116,7 +116,7 @@ function Profile({ handleUpdateUser, handleLogout }) {
                     : currentUser.name
                 }
                 onChange={handleChange}
-                errorMessage={errors.name && errorMessages.name}
+                // errorMessage={errors.name && errorMessages.name}
                 pattern="[a-zA-Zа-яА-Я\s-]*"
                 minLength={2}
               // maxLength={30}
@@ -142,7 +142,7 @@ function Profile({ handleUpdateUser, handleLogout }) {
                     : currentUser.email
                 }
                 onChange={handleChange}
-                errorMessage={errors.email && errorMessages.email}
+                // errorMessage={errors.email && errorMessages.email}
                 // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                 required
                 disabled={!isEditMode}
