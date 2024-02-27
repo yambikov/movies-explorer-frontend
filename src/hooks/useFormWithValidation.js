@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react"
+import { emailPattern, namePattern } from "../utils/constants"
 
 function useFormWithValidation() {
   const [formValue, setFormValue] = useState({})
@@ -13,14 +14,11 @@ function useFormWithValidation() {
   }
 
   const emailValidation = (e) => {
-    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(String(e).toLowerCase());
+    return emailPattern.test(String(e).toLowerCase());
   };
 
   const nameValidation = (name) => {
-    // eslint-disable-next-line no-useless-escape
-    const regex = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
-    return regex.test(name);
+    return namePattern.test(name);
   };
 
   const handleChange = (e) => {
