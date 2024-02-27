@@ -23,7 +23,7 @@ function MoviesCardList({
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
-        <ul
+        <div
           className={
             loading
               ? "movies-card-list__container_preloader"
@@ -76,7 +76,7 @@ function MoviesCardList({
             ))
 
           )}
-        </ul>
+        </div>
         {visibleMovies < moviesLength &&
           !noResultsFound && ( // Условие для отображения кнопки "Ещё", если есть результаты
             <button

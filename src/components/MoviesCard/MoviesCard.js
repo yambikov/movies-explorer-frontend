@@ -49,7 +49,7 @@ function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies
   }
 
   return (
-    <li 
+    <div 
       className={`movie-card movies-card-list__card ${savedMovieLink ? " movie-card__saved-movie-card" : ""
         }`}
     >
@@ -71,7 +71,7 @@ function MoviesCard({ movieId, nameRU, image, duration, trailerLink, savedMovies
           onClick={handleLikeClick}
         ></button>
       </div>
-    </li>
+    </div>
   )
 }
 
