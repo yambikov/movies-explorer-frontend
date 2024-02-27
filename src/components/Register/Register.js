@@ -4,6 +4,7 @@ import Logo from "../Logo/Logo"
 import Input from "../Input/Input"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
 import {useState} from "react"
+// import { emailPattern, namePattern } from "../../utils/constants"
 
 function Register({onRegister}) {
   const {formValue, handleChange, errors, isFormValid, errorMessages} =
@@ -45,7 +46,7 @@ function Register({onRegister}) {
             value={formValue.name || ""}
             onChange={handleChange}
             errorMessage={errors.name && errorMessages.name}
-            pattern="[a-zA-Zа-яА-Я\s-]*"
+            // pattern={namePattern}
             minLength={2}
             maxLength={30}
           />
@@ -60,7 +61,7 @@ function Register({onRegister}) {
             value={formValue.email || ""}
             onChange={handleChange}
             errorMessage={errors.email && errorMessages.email}
-            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            // pattern={emailPattern}
           />
 
           <Input

@@ -39,7 +39,8 @@ const Login = ({ onLogin }) => {
             value={formValue.email || ""}
             onChange={handleChange}
             errorMessage={errors.email && errorMessages.email}
-            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            // pattern={emailPattern}
+
           />
           <Input
             placeholder="Пароль"

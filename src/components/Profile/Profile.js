@@ -4,6 +4,7 @@ import React, { useState, useContext, useEffect } from "react"
 // import {useNavigate} from "react-router-dom"
 import { CurrentUserContext } from "../../context/CurrentUserContext"
 import useFormWithValidation from "../../hooks/useFormWithValidation"
+// import { emailPattern, namePattern } from "../../utils/constants"
 
 function Profile({ handleUpdateUser, handleLogout }) {
   // const navigate = useNavigate()
@@ -117,7 +118,7 @@ function Profile({ handleUpdateUser, handleLogout }) {
                 }
                 onChange={handleChange}
                 // errorMessage={errors.name && errorMessages.name}
-                pattern="[a-zA-Zа-яА-Я\s-]*"
+                // pattern={namePattern}
                 minLength={2}
               // maxLength={30}
               />
@@ -143,7 +144,7 @@ function Profile({ handleUpdateUser, handleLogout }) {
                 }
                 onChange={handleChange}
                 // errorMessage={errors.email && errorMessages.email}
-                // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                // pattern={emailPattern}
                 required
                 disabled={!isEditMode}
               />
