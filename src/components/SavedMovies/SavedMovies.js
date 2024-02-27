@@ -10,7 +10,8 @@ function SavedMovies() {
   const [searchError, setSearchError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [visibleMovies, setVisibleMovies] = useState(0);
-  const [isShort, setIsShort] = useState(JSON.parse(localStorage.getItem("isShort")) || false);
+  // const [isShort, setIsShort] = useState(JSON.parse(localStorage.getItem("isShort")) || false);
+  const [isShort, setIsShort] = useState(false);
   const [noResultsFound, setNoResultsFound] = useState(false);
   const cardsFromSavedMovies = true
 
@@ -30,7 +31,7 @@ function SavedMovies() {
   const toggleShortFilter = () => {
     const newIsShort = !isShort;
     setIsShort(newIsShort);
-    localStorage.setItem("isShort", JSON.stringify(newIsShort));
+    // localStorage.setItem("isShort", JSON.stringify(newIsShort));
     filterAndSetMovies(savedMovies, "");
   };
 
@@ -86,6 +87,7 @@ function SavedMovies() {
       console.error("Search error:", error);
     }
   };
+
   const handleMovieSave = (movie) => {
     MainApi.postMovie(movie)
       .then((savedMovie) => {
@@ -93,7 +95,6 @@ function SavedMovies() {
       })
       .catch((err) => console.log(err));
   };
-
 
   const handleMovieDelete = (props) => {
     const movieToDelete = savedMovies.find((movie) => movie.movieId === props);

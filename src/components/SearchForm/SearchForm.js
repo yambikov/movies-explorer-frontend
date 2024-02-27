@@ -1,44 +1,53 @@
-import React, { useState } from "react"
-import { useEffect } from "react"
-import togglerOn from '../../images/smalltumb_color.svg';
-import togglerOff from '../../images/smalltumb_black.svg';
+import React, {useState} from "react"
+import {useEffect} from "react"
+import togglerOn from "../../images/smalltumb_color.svg"
+import togglerOff from "../../images/smalltumb_black.svg"
 
-function SearchForm({ onSearch, searchError, toggleShortFilter, cardsFromSavedMovies }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [inputError, setInputError] = useState("");
-  const [isShort, setIsShort] = useState(false); // Исходное состояние false
+function SearchForm({
+  onSearch,
+  searchError,
+  toggleShortFilter,
+  cardsFromSavedMovies,
+}) {
+  const [searchTerm, setSearchTerm] = useState("")
+  const [inputError, setInputError] = useState("")
+  const [isShort, setIsShort] = useState(false) // Исходное состояние false
 
   useEffect(() => {
     // Чтение сохраненных значений из localStorage
-    const storedSearchTerm = localStorage.getItem("searchTerm");
-    const storedIsShort = localStorage.getItem("isShort") === "true"; // Преобразование строки в булево значение
+    const storedSearchTerm = localStorage.getItem("searchTerm")
+    const storedIsShort = localStorage.getItem("isShort") === "true" // Преобразование строки в булево значение
     // console.log(`before setIsShort in useEffect in SearchForm isShort: ${storedIsShort}`);
 
     if (storedSearchTerm && !cardsFromSavedMovies) {
-      setSearchTerm(storedSearchTerm);
+      setSearchTerm(storedSearchTerm)
     }
-    setIsShort(storedIsShort); // Установка значения чекбокса из локального хранилища
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!cardsFromSavedMovies) {
+      setIsShort(storedIsShort)
+    } // Установка значения чекбокса из локального хранилища
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!searchTerm.trim()) {
-      setInputError("Нужно ввести ключевое слово");
+      setInputError("Нужно ввести ключевое слово")
     } else {
-      setInputError("");
-      onSearch(searchTerm);
-      localStorage.setItem("initialSearchDone", true);
+      setInputError("")
+      onSearch(searchTerm)
+      localStorage.setItem("initialSearchDone", true)
     }
-  };
+  }
 
   const shortFilmToggler = () => {
-    const newIsShort = !isShort;
-    setIsShort(newIsShort);
-    localStorage.setItem("isShort", newIsShort); // Сохранение состояния чекбокса в localStorage
-    toggleShortFilter(); // Вызов функции для обновления фильтра в родительском компоненте
+    const newIsShort = !isShort
+    setIsShort(newIsShort)
+    if (!cardsFromSavedMovies) {
+      localStorage.setItem("isShort", newIsShort)
+    }
+    toggleShortFilter() // Вызов функции для обновления фильтра в родительском компоненте
     // console.log(`after toggle shortFilmToggler in search form isShort: ${newIsShort}`);
-  };
+  }
 
   return (
     <section className="search-form">
@@ -52,7 +61,7 @@ function SearchForm({ onSearch, searchError, toggleShortFilter, cardsFromSavedMo
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-form__input"
             autoComplete="off"
-          // aria-label="Поиск фильмов"
+            // aria-label="Поиск фильмов"
           />
           <button
             type="submit"
@@ -65,7 +74,10 @@ function SearchForm({ onSearch, searchError, toggleShortFilter, cardsFromSavedMo
           ) : null}
         </form>
         <div className="search-form__short-films">
-          <button className="search-form__toggle-button" onClick={shortFilmToggler}>
+          <button
+            className="search-form__toggle-button"
+            onClick={shortFilmToggler}
+          >
             <img src={isShort ? togglerOn : togglerOff} alt="Toggle" />
           </button>
           <p className="search-form__short-films-text">Короткометражки</p>
