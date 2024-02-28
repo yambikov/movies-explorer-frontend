@@ -14,19 +14,20 @@ function SavedMovies() {
   const [isShort, setIsShort] = useState(false);
   const [noResultsFound, setNoResultsFound] = useState(false);
   const cardsFromSavedMovies = true
+  const [searchTerm, setSearchTerm] = useState("")
 
-  useEffect(() => {
+  useEffect((searchTerm) => {
     setLoading(true);
     MainApi.getSavedMovies()
       .then((movies) => {
         setSavedMovies(movies);
-        filterAndSetMovies(movies, "");
+        filterAndSetMovies(movies, searchTerm);
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [isShort, searchTerm]);
 
   const toggleShortFilter = () => {
     const newIsShort = !isShort;
@@ -36,16 +37,17 @@ function SavedMovies() {
   };
 
   useEffect(() => {
-    filterAndSetMovies(savedMovies, "");
+    filterAndSetMovies(savedMovies, searchTerm);
   }, [isShort, savedMovies]);
 
-  const filterMovies = (movies, searchTerm = "") => {
+  const filterMovies = (movies, searchTerm) => {
     const searchQuery = searchTerm.toLowerCase();
     return movies.filter(movie =>
       (movie.nameRU.toLowerCase().includes(searchQuery) || movie.nameEN.toLowerCase().includes(searchQuery)) &&
       (!isShort || movie.duration <= 40)
     );
   };
+  // console.log(searchTerm);
 
   const filterAndSetMovies = (movies, searchTerm) => {
     const filtered = filterMovies(movies, searchTerm);
@@ -78,10 +80,11 @@ function SavedMovies() {
     setVisibleMovies(prev => Math.min(prev + add, filteredMovies.length));
   };
 
-  const handleSearch = (searchTerm) => {
+  const handleSearch = (searchTerm, isShort) => {
     setSearchError(false);
+    setSearchTerm(searchTerm);
     try {
-      filterAndSetMovies(savedMovies, searchTerm);
+      filterAndSetMovies(savedMovies, searchTerm, isShort);
     } catch (error) {
       setSearchError(true);
       console.error("Search error:", error);

@@ -7,7 +7,7 @@ function SearchForm({
   onSearch,
   searchError,
   toggleShortFilter,
-  cardsFromSavedMovies,
+  cardsFromSavedMovies
 }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [inputError, setInputError] = useState("")
@@ -34,7 +34,7 @@ function SearchForm({
       setInputError("Нужно ввести ключевое слово")
     } else {
       setInputError("")
-      onSearch(searchTerm)
+      onSearch(searchTerm, isShort)
       localStorage.setItem("initialSearchDone", true)
     }
   }
@@ -42,6 +42,7 @@ function SearchForm({
   const shortFilmToggler = () => {
     const newIsShort = !isShort
     setIsShort(newIsShort)
+    onSearch(searchTerm, newIsShort);
     if (!cardsFromSavedMovies) {
       localStorage.setItem("isShort", newIsShort)
     }
