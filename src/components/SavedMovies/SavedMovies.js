@@ -41,14 +41,13 @@ function SavedMovies() {
   }, [isShort, savedMovies]);
 
   const filterMovies = (movies, searchTerm) => {
-    const searchQuery = searchTerm.toLowerCase();
+    const searchQuery = searchTerm ? searchTerm.toLowerCase() : "";
     return movies.filter(movie =>
       (movie.nameRU.toLowerCase().includes(searchQuery) || movie.nameEN.toLowerCase().includes(searchQuery)) &&
       (!isShort || movie.duration <= 40)
     );
   };
-  // console.log(searchTerm);
-
+  
   const filterAndSetMovies = (movies, searchTerm) => {
     const filtered = filterMovies(movies, searchTerm);
     setFilteredMovies(filtered);
